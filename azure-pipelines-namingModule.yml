@@ -1,0 +1,92 @@
+name: $(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+trigger:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - "code/CloudNamingModule"
+
+variables:
+  FeedName: TDD_ESLZ_Build_PSModules_Feed
+stages:
+  - stage: test_and_build
+    displayName: "Test and Build"
+    jobs:
+      - job: lint_test
+        displayName: Lint Test
+        pool:
+          name: 'TDD ESLZ Build Prod'
+        steps:
+          - pwsh: |
+              Import-Module "$(Build.SourcesDirectory)\code\tests\TestJsonSchema\TestJsonSchema.psm1"
+              Test-JSONSchema -JsonPath $(Build.SourcesDirectory)\code\CloudNamingModule\CloudNaming\CloudNaming.json -SchemaPath $(Build.SourcesDirectory)\code\CloudNamingModule\schema\CloudNaming.schema.json -OutputFile $(Build.SourcesDirectory)\TEST-CloudNaming.JSONSchema.XML
+            displayName: "Json Schema Validation for CloudNaming.json"
+            errorActionPreference: continue
+          - pwsh: |
+              Import-Module "$(Build.SourcesDirectory)\code\tests\PSPesterTest\PSPesterTest.psm1"
+              Test-ImportModule -ModulePath $(Build.SourcesDirectory)\code\CloudNamingModule\CloudNaming -OutputFile $(Build.SourcesDirectory)\TEST-PSPesterTest.NamingModuleImport.XML
+              Test-PSScriptAnalyzerRule -Path $(Build.SourcesDirectory)\code\CloudNamingModule\CloudNaming -recurse $true -MinimumSeverityLevel Warning -OutputFile $(Build.SourcesDirectory)\TEST-PSPesterTest.PSSA.NamingModule.XML
+            displayName: "Pester Test PowerShell Scripts"
+            errorActionPreference: continue
+          - task: PublishTestResults@2
+            displayName: "Publish Test Results"
+            inputs:
+              testResultsFormat: NUnit
+              testResultsFiles: "**/TEST-*.xml"
+              failTaskOnFailedTests: true
+            condition: always()
+
+      - job: build_and_publish
+        displayName: Build and Publish
+        pool:
+          name: 'TDD ESLZ Build Prod'
+        dependsOn: lint_test
+        steps:
+          - task: PowerShell@2
+            displayName: "PowerShell Script - Create Nuspec file"
+            inputs:
+              targetType: filePath
+              filePath: '$(Build.SourcesDirectory)\code\CloudNamingModule\build\psd1-to-nuspec.ps1'
+              arguments: '-ManifestPath $(Build.SourcesDirectory)\code\CloudNamingModule\CloudNaming\CloudNaming.psd1'
+          - task: NuGetCommand@2
+            displayName: "Create NuGet package"
+            inputs:
+              command: pack
+              packagesToPack: code\CloudNamingModule\CloudNaming\CloudNaming.nuspec
+              packDestination: code\CloudNamingModule\CloudNaming\
+          - task: CopyFiles@2
+            displayName: "Copy Files to: $(Build.ArtifactStagingDirectory)"
+            inputs:
+              SourceFolder: "$(Build.SourcesDirectory)/code/CloudNamingModule"
+              TargetFolder: "$(Build.ArtifactStagingDirectory)/code/CloudNamingModule"
+              CleanTargetFolder: true
+              OverWrite: true
+          - task: PublishBuildArtifacts@1
+            displayName: "Publish Artifact: drop"
+            inputs:
+              artifactName: "drop"
+              PathtoPublish: "$(Build.ArtifactStagingDirectory)/code/CloudNamingModule"
+  - stage: module_deploy_ado_server
+    displayName: "Deploy PS Module"
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    jobs:
+      - deployment: ado_server_deploy
+        displayName: "Deploy Azure Artifact Feed on ADO server"
+        pool:
+          name: 'TDD ESLZ Build Prod'
+          timeoutInMinutes: 30
+        environment: 'Production-Packages'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: NuGetAuthenticate@0
+                  displayName: "NuGet Authenticate"
+                - task: NuGetCommand@2
+                  displayName: "NuGet push"
+                  inputs:
+                    command: push
+                    publishVstsFeed: "$(System.TeamProject)/$(feedName)"
+                    packagesToPush: "$(Agent.BuildDirectory)/drop/CloudNaming/*.nupkg"
+                    allowPackageConflicts: true

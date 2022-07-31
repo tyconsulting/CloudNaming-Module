@@ -1,0 +1,691 @@
+{
+  "control": {
+    "cloud": {
+      "description": "cloud provider.",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 8
+    },
+    "company": {
+      "description": "company abbreviation if been used to host external company solution.",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 8
+    },
+    "resourceType": {
+      "description": "Resource type.",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 5
+    },
+    "environment": {
+      "description": "Environment.",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3,
+      "regex": "^[a-zA-Z][0-9]{2}$"
+    },
+    "appIdentifier": {
+      "description": "Uniquely identifies the application. App identifier refer to CI number without contoso prefix",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 7
+    },
+    "associatedResourceType": {
+      "description": "Associated resource type.",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 5
+    },
+    "associatedResourceName": {
+      "description": "Associated resource name.",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 4,
+      "regex": "^[a-zA-Z0-9]+(-?[a-zA-Z0-9])*[a-zA-Z0-9]+$"
+    },
+    "workloadType": {
+      "description": "Workload type.",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 3
+    },
+    "instance": {
+      "description": "Instance number",
+      "type": "int",
+      "minValue": 1,
+      "maxValue": 99
+    }
+  },
+  "allowedValues": {
+    "cloud": [
+      {
+        "value": "azure",
+        "description": "Microsoft Azure"
+      },
+      {
+        "value": "aws",
+        "description": "Amazon Web Services"
+      },
+      {
+        "value": "gcp",
+        "description": "Google Cloud Platform"
+      }
+    ],
+    "company": [
+      {
+        "value": "cts",
+        "description": "Contoso Ltd."
+      },
+      {
+        "value": "fbkm",
+        "description": "Fabrikam, Inc."
+      }
+    ],
+    "resourceType": [
+      {
+        "value": "aa",
+        "description": "Automation Account",
+        "minLength": 6,
+        "maxLength": 50,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "acr",
+        "description": "Azure Container Registry",
+        "minLength": 5,
+        "maxLength": 50,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "adf",
+        "description": "Azure Data Factory",
+        "minLength": 3,
+        "maxLength": 63,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "afw",
+        "description": "Azure Firewall",
+        "minLength": 1,
+        "maxLength": 56,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "afwp",
+        "description": "Azure Firewall Policy",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "agw",
+        "description": "Application Gateway",
+        "minLength": 1,
+        "maxLength": 24,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "aks",
+        "description": "Azure Kubernetes Service",
+        "minLength": 1,
+        "maxLength": 50,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "anf",
+        "description": "Azure NetApp Files",
+        "minLength": 1,
+        "maxLength": 128,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "apim",
+        "description": "API Management",
+        "minLength": 1,
+        "maxLength": 256,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "app",
+        "description": "App Service (Web App)",
+        "minLength": 2,
+        "maxLength": 60,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "appi",
+        "description": "Application Insights",
+        "minLength": 1,
+        "maxLength": 260,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "ampls",
+        "description": "Azure Monitor Private Link Scope",
+        "minLength": 1,
+        "maxLength": 255,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "ase",
+        "description": "App Service Environments",
+        "minLength": 2,
+        "maxLength": 60,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "asg",
+        "description": "Application Security Group",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "bas",
+        "description": "Bastion Host",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "ddos",
+        "description": "DDoS Protection Plan",
+        "minLength": 2,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "dec",
+        "description": "Azure Data Explorer Cluster",
+        "minLength": 3,
+        "maxLength": 22,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}{resourceType}{environment}{appIdentifier}{instance}"
+      },
+      {
+        "value": "disk",
+        "description": "Managed Disk",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{associatedResourceName}-{instance}"
+      },
+      {
+        "value": "egd",
+        "description": "Event Grid Domain",
+        "minLength": 3,
+        "maxLength": 50,
+        "leadingZeros": true,
+        "case": "lower",
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "egs",
+        "description": "Event Grid Subscription",
+        "minLength": 3,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "egt",
+        "description": "Event Grid Topic",
+        "minLength": 3,
+        "maxLength": 50,
+        "leadingZeros": true,
+        "case": "lower",
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "erg",
+        "description": "ExpressRoute Gateway",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "erc",
+        "description": "ExpressRoute Circuit",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "evh",
+        "description": "Event Hub",
+        "minLength": 6,
+        "maxLength": 50,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "evhns",
+        "description": "Event Hubs Namespace",
+        "minLength": 6,
+        "maxLength": 50,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "fd",
+        "description": "Azure Front Door",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "func",
+        "description": "Function App",
+        "minLength": 2,
+        "maxLength": 60,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "ipgr",
+        "description": "IP Group",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "kv",
+        "description": "Key Vault",
+        "minLength": 3,
+        "maxLength": 24,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "lb",
+        "description": "Load Balancer",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "log",
+        "description": "Log Analytics Workspace",
+        "minLength": 4,
+        "maxLength": 63,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "mi",
+        "description": "Managed Identity",
+        "minLength": 3,
+        "maxLength": 128,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "msql",
+        "description": "MySQL Database",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "nic",
+        "description": "Network Interface Card",
+        "minLength": 2,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{associatedResourceName}-{instance}"
+      },
+      {
+        "value": "nsg",
+        "description": "Network Security Group",
+        "minLength": 2,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "ntf",
+        "description": "Notification Hub",
+        "minLength": 2,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "ntfns",
+        "description": "Notification Hub Namespace",
+        "minLength": 2,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "pe",
+        "description": "Private Endpoint",
+        "minLength": 2,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{appIdentifier}-{associatedResourceType}-{instance}"
+      },
+      {
+        "value": "pip",
+        "description": "Public IP",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{associatedResourceType}-{instance}"
+      },
+      {
+        "value": "pl",
+        "description": "Private Link Service",
+        "minLength": 2,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "plan",
+        "description": "App Service Plan",
+        "minLength": 2,
+        "maxLength": 60,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "psql",
+        "description": "PostgresSQL Database",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "pvw",
+        "description": "Azure Purview",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "pvwi",
+        "description": "Azure Purview Instance",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "redis",
+        "description": "Azure Cache for Redis",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "rg",
+        "description": "Resource Group",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "rn",
+        "description": "Route",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "rsv",
+        "description": "Recovery Services Vault",
+        "minLength": 2,
+        "maxLength": 50,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "rt",
+        "description": "Route Table",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "sb",
+        "description": "Service Bus",
+        "minLength": 1,
+        "maxLength": 63,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "snet",
+        "description": "Subnet",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "sqldb",
+        "description": "Azure SQL Database (PaaS)",
+        "minLength": 1,
+        "maxLength": 63,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "sqlmi",
+        "description": "SQL Managed Instances",
+        "minLength": 1,
+        "maxLength": 63,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "sqls",
+        "description": "Azure SQL Server (PaaS)",
+        "minLength": 1,
+        "maxLength": 63,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "st",
+        "description": "Storage Account",
+        "minLength": 3,
+        "maxLength": 24,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}{resourceType}{environment}{appIdentifier}{instance}"
+      },
+      {
+        "value": "sub",
+        "description": "Subscription",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{workloadType}-{appIdentifier}-{environment}"
+      },
+      {
+        "value": "syn",
+        "description": "Azure Synapse",
+        "minLength": 1,
+        "maxLength": 63,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "vdag",
+        "description": "Virtual Desktop Application Group",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "vdpl",
+        "description": "Virtual Desktop Host Pool",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "vdws",
+        "description": "Virtual Desktop Workspace",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "vhub",
+        "description": "Virtual Hub",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "vm",
+        "description": "Virtual Machine",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{workloadType}{environment}{appIdentifier}-{instance}"
+      },
+      {
+        "value": "vmss",
+        "description": "Virtual Machine Scale Set",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "vnet",
+        "description": "Virtual Network",
+        "minLength": 2,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "vpngw",
+        "description": "VPN Gateway",
+        "minLength": 2,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "vwan",
+        "description": "Virtual WAN",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "waf",
+        "description": "Web Application Firewall",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      }
+    ]
+  }
+}
