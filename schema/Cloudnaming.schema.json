@@ -22,6 +22,7 @@
         "company",
         "resourceType",
         "environment",
+        "location",
         "appIdentifier",
         "associatedResourceType",
         "associatedResourceName",
@@ -100,6 +101,7 @@
           ],
           "required": [
             "description",
+            "cloud",
             "type",
             "minLength",
             "maxLength"
@@ -113,6 +115,16 @@
               "default": "",
               "examples": [
                 "Resource type."
+              ]
+            },
+            "cloud": {
+              "$id": "#/properties/control/properties/resourceType/properties/description",
+              "type": "string",
+              "title": "The cloud schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "Name of the cloud provider."
               ]
             },
             "type": {
@@ -224,6 +236,70 @@
           },
           "additionalProperties": true
         },
+        "location": {
+          "$id": "#/properties/control/properties/appIdentifier",
+          "type": "object",
+          "title": "The appIdentifier schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+            {
+              "description": "Location or Region of the public cloud provider",
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 5
+            }
+          ],
+          "required": [
+            "description",
+            "type",
+            "minLength",
+            "maxLength"
+          ],
+          "properties": {
+            "description": {
+              "$id": "#/properties/control/properties/appIdentifier/properties/description",
+              "type": "string",
+              "title": "The description schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "Location or Region of the public cloud provider"
+              ]
+            },
+            "type": {
+              "$id": "#/properties/control/properties/appIdentifier/properties/type",
+              "type": "string",
+              "title": "The type schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "string"
+              ]
+            },
+            "minLength": {
+              "$id": "#/properties/control/properties/appIdentifier/properties/minLength",
+              "type": "integer",
+              "title": "The minLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                2
+              ]
+            },
+            "maxLength": {
+              "$id": "#/properties/control/properties/appIdentifier/properties/maxLength",
+              "type": "integer",
+              "title": "The maxLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                5
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
         "appIdentifier": {
           "$id": "#/properties/control/properties/appIdentifier",
           "type": "object",
@@ -232,7 +308,7 @@
           "default": {},
           "examples": [
             {
-              "description": "Uniquely identifies the application. App identifier refer to CI number without contoso prefix",
+              "description": "Uniquely identifies the application.",
               "type": "string",
               "minLength": 3,
               "maxLength": 7
@@ -252,7 +328,7 @@
               "description": "An explanation about the purpose of this instance.",
               "default": "",
               "examples": [
-                "Uniquely identifies the application. App identifier refer to CI number without contoso prefix"
+                "Uniquely identifies the application."
               ]
             },
             "type": {

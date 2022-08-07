@@ -25,8 +25,14 @@
       "maxLength": 3,
       "regex": "^[a-zA-Z][0-9]{2}$"
     },
+    "location": {
+      "description": "Location or Region.",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 5
+    },
     "appIdentifier": {
-      "description": "Uniquely identifies the application. App identifier refer to CI number without contoso prefix",
+      "description": "Uniquely identifies the application.",
       "type": "string",
       "minLength": 1,
       "maxLength": 7
@@ -86,6 +92,7 @@
       {
         "value": "aa",
         "description": "Automation Account",
+        "cloud": "azure",
         "minLength": 6,
         "maxLength": 50,
         "case": "lower",
@@ -95,6 +102,7 @@
       {
         "value": "acr",
         "description": "Azure Container Registry",
+        "cloud": "azure",
         "minLength": 5,
         "maxLength": 50,
         "case": "lower",
@@ -104,6 +112,7 @@
       {
         "value": "adf",
         "description": "Azure Data Factory",
+        "cloud": "azure",
         "minLength": 3,
         "maxLength": 63,
         "case": "lower",
@@ -113,6 +122,7 @@
       {
         "value": "afw",
         "description": "Azure Firewall",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 56,
         "case": "lower",
@@ -122,6 +132,7 @@
       {
         "value": "afwp",
         "description": "Azure Firewall Policy",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -131,6 +142,7 @@
       {
         "value": "agw",
         "description": "Application Gateway",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 24,
         "case": "lower",
@@ -140,6 +152,7 @@
       {
         "value": "aks",
         "description": "Azure Kubernetes Service",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 50,
         "case": "lower",
@@ -149,6 +162,7 @@
       {
         "value": "anf",
         "description": "Azure NetApp Files",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 128,
         "case": "lower",
@@ -158,6 +172,7 @@
       {
         "value": "apim",
         "description": "API Management",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 256,
         "case": "lower",
@@ -167,6 +182,7 @@
       {
         "value": "app",
         "description": "App Service (Web App)",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 60,
         "case": "lower",
@@ -176,6 +192,7 @@
       {
         "value": "appi",
         "description": "Application Insights",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 260,
         "case": "lower",
@@ -185,6 +202,7 @@
       {
         "value": "ampls",
         "description": "Azure Monitor Private Link Scope",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 255,
         "case": "lower",
@@ -194,6 +212,7 @@
       {
         "value": "ase",
         "description": "App Service Environments",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 60,
         "case": "lower",
@@ -203,6 +222,7 @@
       {
         "value": "asg",
         "description": "Application Security Group",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -212,6 +232,7 @@
       {
         "value": "bas",
         "description": "Bastion Host",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -221,6 +242,7 @@
       {
         "value": "ddos",
         "description": "DDoS Protection Plan",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 64,
         "case": "lower",
@@ -228,8 +250,9 @@
         "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
       },
       {
-        "value": "dec",
+        "value": "adx",
         "description": "Azure Data Explorer Cluster",
+        "cloud": "azure",
         "minLength": 3,
         "maxLength": 22,
         "case": "lower",
@@ -239,6 +262,7 @@
       {
         "value": "disk",
         "description": "Managed Disk",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -248,6 +272,7 @@
       {
         "value": "egd",
         "description": "Event Grid Domain",
+        "cloud": "azure",
         "minLength": 3,
         "maxLength": 50,
         "leadingZeros": true,
@@ -257,6 +282,7 @@
       {
         "value": "egs",
         "description": "Event Grid Subscription",
+        "cloud": "azure",
         "minLength": 3,
         "maxLength": 64,
         "case": "lower",
@@ -266,6 +292,7 @@
       {
         "value": "egt",
         "description": "Event Grid Topic",
+        "cloud": "azure",
         "minLength": 3,
         "maxLength": 50,
         "leadingZeros": true,
@@ -275,6 +302,7 @@
       {
         "value": "erg",
         "description": "ExpressRoute Gateway",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -284,6 +312,7 @@
       {
         "value": "erc",
         "description": "ExpressRoute Circuit",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -293,6 +322,7 @@
       {
         "value": "evh",
         "description": "Event Hub",
+        "cloud": "azure",
         "minLength": 6,
         "maxLength": 50,
         "case": "lower",
@@ -302,6 +332,7 @@
       {
         "value": "evhns",
         "description": "Event Hubs Namespace",
+        "cloud": "azure",
         "minLength": 6,
         "maxLength": 50,
         "case": "lower",
@@ -309,8 +340,9 @@
         "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
       },
       {
-        "value": "fd",
+        "value": "afd",
         "description": "Azure Front Door",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -320,6 +352,7 @@
       {
         "value": "func",
         "description": "Function App",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 60,
         "case": "lower",
@@ -329,6 +362,7 @@
       {
         "value": "ipgr",
         "description": "IP Group",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -338,6 +372,7 @@
       {
         "value": "kv",
         "description": "Key Vault",
+        "cloud": "azure",
         "minLength": 3,
         "maxLength": 24,
         "case": "lower",
@@ -347,6 +382,7 @@
       {
         "value": "lb",
         "description": "Load Balancer",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -354,8 +390,9 @@
         "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
       },
       {
-        "value": "log",
+        "value": "law",
         "description": "Log Analytics Workspace",
+        "cloud": "azure",
         "minLength": 4,
         "maxLength": 63,
         "case": "lower",
@@ -365,6 +402,7 @@
       {
         "value": "mi",
         "description": "Managed Identity",
+        "cloud": "azure",
         "minLength": 3,
         "maxLength": 128,
         "case": "lower",
@@ -374,6 +412,7 @@
       {
         "value": "msql",
         "description": "MySQL Database",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -383,6 +422,7 @@
       {
         "value": "nic",
         "description": "Network Interface Card",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 64,
         "case": "lower",
@@ -392,6 +432,7 @@
       {
         "value": "nsg",
         "description": "Network Security Group",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 64,
         "case": "lower",
@@ -401,6 +442,7 @@
       {
         "value": "ntf",
         "description": "Notification Hub",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 64,
         "case": "lower",
@@ -410,6 +452,7 @@
       {
         "value": "ntfns",
         "description": "Notification Hub Namespace",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 64,
         "case": "lower",
@@ -419,6 +462,7 @@
       {
         "value": "pe",
         "description": "Private Endpoint",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 64,
         "case": "lower",
@@ -428,6 +472,7 @@
       {
         "value": "pip",
         "description": "Public IP",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -437,6 +482,7 @@
       {
         "value": "pl",
         "description": "Private Link Service",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 64,
         "case": "lower",
@@ -444,8 +490,9 @@
         "pattern": "{company}-{resourceType}-{appIdentifier}-{instance}"
       },
       {
-        "value": "plan",
+        "value": "asp",
         "description": "App Service Plan",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 60,
         "case": "lower",
@@ -455,6 +502,7 @@
       {
         "value": "psql",
         "description": "PostgresSQL Database",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -463,7 +511,8 @@
       },
       {
         "value": "pvw",
-        "description": "Azure Purview",
+        "description": "Microsoft Purview",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -472,7 +521,8 @@
       },
       {
         "value": "pvwi",
-        "description": "Azure Purview Instance",
+        "description": "Purview Instance",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -482,6 +532,7 @@
       {
         "value": "redis",
         "description": "Azure Cache for Redis",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -491,6 +542,7 @@
       {
         "value": "rg",
         "description": "Resource Group",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 64,
         "case": "lower",
@@ -500,6 +552,7 @@
       {
         "value": "rn",
         "description": "Route",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -509,6 +562,7 @@
       {
         "value": "rsv",
         "description": "Recovery Services Vault",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 50,
         "case": "lower",
@@ -518,6 +572,7 @@
       {
         "value": "rt",
         "description": "Route Table",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -527,6 +582,7 @@
       {
         "value": "sb",
         "description": "Service Bus",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 63,
         "case": "lower",
@@ -534,8 +590,9 @@
         "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
       },
       {
-        "value": "snet",
+        "value": "sn",
         "description": "Subnet",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 80,
         "case": "lower",
@@ -545,6 +602,7 @@
       {
         "value": "sqldb",
         "description": "Azure SQL Database (PaaS)",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 63,
         "case": "lower",
@@ -554,6 +612,7 @@
       {
         "value": "sqlmi",
         "description": "SQL Managed Instances",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 63,
         "case": "lower",
@@ -563,6 +622,7 @@
       {
         "value": "sqls",
         "description": "Azure SQL Server (PaaS)",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 63,
         "case": "lower",
@@ -570,8 +630,9 @@
         "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
       },
       {
-        "value": "st",
+        "value": "sa",
         "description": "Storage Account",
+        "cloud": "azure",
         "minLength": 3,
         "maxLength": 24,
         "case": "lower",
@@ -581,6 +642,7 @@
       {
         "value": "sub",
         "description": "Subscription",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 64,
         "case": "lower",
@@ -590,6 +652,7 @@
       {
         "value": "syn",
         "description": "Azure Synapse",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 63,
         "case": "lower",
@@ -599,6 +662,7 @@
       {
         "value": "vdag",
         "description": "Virtual Desktop Application Group",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 64,
         "case": "lower",
@@ -608,6 +672,7 @@
       {
         "value": "vdpl",
         "description": "Virtual Desktop Host Pool",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 64,
         "case": "lower",
@@ -617,6 +682,7 @@
       {
         "value": "vdws",
         "description": "Virtual Desktop Workspace",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 64,
         "case": "lower",
@@ -626,6 +692,7 @@
       {
         "value": "vhub",
         "description": "Virtual Hub",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 64,
         "case": "lower",
@@ -635,6 +702,7 @@
       {
         "value": "vm",
         "description": "Virtual Machine",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 64,
         "case": "lower",
@@ -644,6 +712,7 @@
       {
         "value": "vmss",
         "description": "Virtual Machine Scale Set",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 64,
         "case": "lower",
@@ -653,6 +722,7 @@
       {
         "value": "vnet",
         "description": "Virtual Network",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 64,
         "case": "lower",
@@ -662,6 +732,7 @@
       {
         "value": "vpngw",
         "description": "VPN Gateway",
+        "cloud": "azure",
         "minLength": 2,
         "maxLength": 64,
         "case": "lower",
@@ -671,6 +742,7 @@
       {
         "value": "vwan",
         "description": "Virtual WAN",
+        "cloud": "azure",
         "minLength": 1,
         "maxLength": 64,
         "case": "lower",
@@ -680,6 +752,97 @@
       {
         "value": "waf",
         "description": "Web Application Firewall",
+        "cloud": "azure",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "ec2",
+        "description": "Elastic Compute Cloud (EC2) instance",
+        "cloud": "aws",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "vpc",
+        "description": "Virtual Private Cloud Network",
+        "cloud": "aws",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "sn",
+        "description": "Subnet",
+        "cloud": "aws",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "s3",
+        "description": "S3 Bucket",
+        "cloud": "aws",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "pro",
+        "description": "GCP Project",
+        "cloud": "gcp",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "vm",
+        "description": "VM Instance",
+        "cloud": "gcp",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "vpc",
+        "description": "Virtual Private Cloud Network",
+        "cloud": "gcp",
+        "minLength": 1,
+        "maxLength": 64,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "sn",
+        "description": "Subnet",
+        "cloud": "gcp",
+        "minLength": 1,
+        "maxLength": 80,
+        "case": "lower",
+        "leadingZeros": true,
+        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+      },
+      {
+        "value": "sb",
+        "description": "Storage Bucket",
+        "cloud": "gcp",
         "minLength": 1,
         "maxLength": 64,
         "case": "lower",

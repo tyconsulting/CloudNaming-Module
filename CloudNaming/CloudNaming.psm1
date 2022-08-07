@@ -12,9 +12,11 @@ function ValidateInput {
   Param
   (
     [Parameter(Mandatory = $true)][object]$config,
+    [Parameter(Mandatory = $true)][object]$cloud,
     [Parameter(Mandatory = $false)][String[]]$type,
     [Parameter(Mandatory = $true)][String]$company,
     [Parameter(Mandatory = $false)][string]$environment,
+    [Parameter(Mandatory = $false)][string]$location,
     [Parameter(Mandatory = $true)][string]$appIdentifier,
     [Parameter(Mandatory = $false)][string]$workloadType,
     [Parameter(Mandatory = $false)][string]$associatedResourceType,
@@ -22,6 +24,12 @@ function ValidateInput {
     [Parameter(Mandatory = $true)][int]$startInstanceNumber,
     [Parameter(Mandatory = $true)][int]$InstanceCount
   )
+
+  #validate cloud proivder
+  $bValidCloud = $false
+  if ($config.allowedValues.cloud | Where-Object { $_.name -ieq $cloud }) {
+    $bValidCloud = $true
+  }
   #Validate type
   $bValidType = $true
   if ($PSBoundParameters.ContainsKey('type')) {
@@ -85,6 +93,7 @@ function ValidateInput {
   }
   #Generate result
   $result = @{
+    'cloud'          = $bValidCloud
     'type'           = $bValidType
     'company'        = $bValidCompany
     'appIdentifier'  = $bValidAppIdentifier
@@ -114,6 +123,7 @@ function GenerateResourceName {
     [Parameter(Mandatory = $true)][String]$type,
     [Parameter(Mandatory = $true)][String]$company,
     [Parameter(Mandatory = $false)][string]$environment,
+    [Parameter(Mandatory = $false)][string]$location,
     [Parameter(Mandatory = $true)][string]$appIdentifier,
     [Parameter(Mandatory = $false)][string]$workloadType,
     [Parameter(Mandatory = $false)][string]$associatedResourceType,
@@ -137,6 +147,10 @@ function GenerateResourceName {
   #insert environment into name
   if ($PSBoundParameters.ContainsKey('environment')) {
     $name = $name -replace '{environment}', $environment
+  }
+  #insert location into name
+  if ($PSBoundParameters.ContainsKey('location')) {
+    $name = $name -replace '{location}', $environment
   }
   #insert appIdentifier into name
   $name = $name -replace '{appIdentifier}', $appIdentifier
@@ -205,6 +219,10 @@ function GetCloudResourceName {
     [Parameter(ParameterSetName = 'AllSupportedTypes', Mandatory = $false, HelpMessage = "OPTIONAL: Specify the environment")]
     [string]$environment,
 
+    [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $false, HelpMessage = "OPTIONAL: Specify the location or region of the cloud provider")]
+    [Parameter(ParameterSetName = 'AllSupportedTypes', Mandatory = $false, HelpMessage = "OPTIONAL: Specify the location or region of the cloud provider")]
+    [string]$location,
+
     [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $true, HelpMessage = "Specify the application identifier")]
     [Parameter(ParameterSetName = 'AllSupportedTypes', Mandatory = $true, HelpMessage = "Specify the application identifier")]
     [string]$appIdentifier,
@@ -243,6 +261,7 @@ function GetCloudResourceName {
   Write-verbose "Input validation"
   $validateParams = @{
     'config'              = $config
+    'cloud'               = $cloud
     'company'             = $company
     'startInstanceNumber' = $startInstanceNumber
     'appIdentifier'       = $appIdentifier
@@ -254,6 +273,9 @@ function GetCloudResourceName {
   }
   if ($PSBoundParameters.ContainsKey('environment')) {
     $validateParams.Add('environment', $environment)
+  }
+  if ($PSBoundParameters.ContainsKey('location')) {
+    $validateParams.Add('location', $location)
   }
   if ($PSBoundParameters.ContainsKey('associatedResourceType')) {
     $validateParams.Add('associatedResourceType', $associatedResourceType)
