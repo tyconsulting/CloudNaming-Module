@@ -3,12 +3,12 @@
 
 | Version | Date | Author | Note |
 | :-----: | :--: | :----- | :--- |
-| 0.1.0 | 01/08/2022 | Tao Yang | Initial release |
+| 0.2.1 | 29/08/2022 | Tao Yang | Initial release |
 
 
 ## Introduction
 
-The CloudNaming PowerShell module can be used to programatically generate cloud resource names for your organisation.
+The CloudNaming PowerShell module can be used to programmatically generate cloud resource names for your organization.
 
 It can be used as a standalone module, or as part of a Infrastructure as Code (IaC) pipeline.
 
