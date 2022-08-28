@@ -13,8 +13,9 @@ Get supported Azure resource types from the CloudNaming module
 
 ## SYNTAX
 
-```PowerShell
-GetCloudNamingSupportedTypes [[-searchString] <String>] [<CommonParameters>]
+```
+GetCloudNamingSupportedTypes [-configFilePath <String>] [[-searchString] <String>] [-cloud <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -47,12 +48,22 @@ PS C:\> GetCloudNamingSupportedTypes -cloud 'azure' -searchString '^virtual mach
 
 Search supported resource types for Azure using a regular expression and convert the output to an array of objects.
 
+### Example 4
+
+```powershell
+PS C:\> GetCloudNamingSupportedTypes -cloud 'azure' -configFilePath 'c:\temp\config.json' | ConvertFrom-Json
+```
+
+Search supported resource types for Azure from a custom configuration file and convert the output to an array of objects.
+
 ## PARAMETERS
 
-### -configFilePath
+### -searchString
 
-OPTIONAL: The custom configuration file to use.
-If not specified, the default configuration file 'CloudNaming.json' from the module directory will be used.
+OPTIONAL: Resource type search string.
+RegEx is supported.
+i.e.
+'^virtual machine$'
 
 ```yaml
 Type: String
@@ -77,18 +88,16 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -searchString
+### -configFilePath
 
-OPTIONAL: Resource type search string.
-RegEx is supported.
-i.e.
-'^virtual machine$'
+OPTIONAL: The custom configuration file to use.
+If not specified, the default configuration file 'CloudNaming.json' from the module directory will be used.
 
 ```yaml
 Type: String
@@ -96,14 +105,13 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
