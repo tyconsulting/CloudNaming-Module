@@ -2,6 +2,8 @@ name: Publish To PSGallery
 on:
   push:
     branches: [ main, master ]
+    paths:
+      - 'CloudNaming/**'
 
   workflow_dispatch:
 
