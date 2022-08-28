@@ -1,0 +1,932 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [],
+  "required": [
+    "control",
+    "allowedValues"
+  ],
+  "properties": {
+    "control": {
+      "$id": "#/properties/control",
+      "type": "object",
+      "title": "The control schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": {},
+      "examples": [],
+      "required": [
+        "cloud",
+        "company",
+        "resourceType",
+        "environment",
+        "location",
+        "appIdentifier",
+        "associatedResourceType",
+        "associatedResourceName",
+        "workloadType",
+        "instance"
+      ],
+      "properties": {
+        "cloud": {
+          "$id": "#/properties/control/properties/cloud",
+          "type": "object",
+          "title": "The cloud schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [],
+          "required": [
+            "description",
+            "type",
+            "minLength",
+            "maxLength"
+          ],
+          "properties": {
+            "description": {
+              "$id": "#/properties/control/properties/cloud/properties/description",
+              "type": "string",
+              "title": "The description schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": []
+            },
+            "type": {
+              "$id": "#/properties/control/properties/cloud/properties/type",
+              "type": "string",
+              "title": "The type schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "string"
+              ]
+            },
+            "minLength": {
+              "$id": "#/properties/control/properties/cloud/properties/minLength",
+              "type": "integer",
+              "title": "The minLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                3
+              ]
+            },
+            "maxLength": {
+              "$id": "#/properties/control/properties/cloud/properties/maxLength",
+              "type": "integer",
+              "title": "The maxLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                3
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "company": {
+          "$id": "#/properties/control/properties/company",
+          "type": "object",
+          "title": "The cloud schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [],
+          "required": [
+            "description",
+            "type",
+            "minLength",
+            "maxLength"
+          ],
+          "properties": {
+            "description": {
+              "$id": "#/properties/control/properties/company/properties/description",
+              "type": "string",
+              "title": "The description schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": []
+            },
+            "type": {
+              "$id": "#/properties/control/properties/company/properties/type",
+              "type": "string",
+              "title": "The type schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "string"
+              ]
+            },
+            "minLength": {
+              "$id": "#/properties/control/properties/company/properties/minLength",
+              "type": "integer",
+              "title": "The minLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                3
+              ]
+            },
+            "maxLength": {
+              "$id": "#/properties/control/properties/company/properties/maxLength",
+              "type": "integer",
+              "title": "The maxLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                3
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "resourceType": {
+          "$id": "#/properties/control/properties/resourceType",
+          "type": "object",
+          "title": "The resourceType schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+            {
+              "description": "Resource type.",
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 5
+            }
+          ],
+          "required": [
+            "description",
+            "type",
+            "minLength",
+            "maxLength"
+          ],
+          "properties": {
+            "description": {
+              "$id": "#/properties/control/properties/resourceType/properties/description",
+              "type": "string",
+              "title": "The description schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "Resource type."
+              ]
+            },
+            "type": {
+              "$id": "#/properties/control/properties/resourceType/properties/type",
+              "type": "string",
+              "title": "The type schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "string"
+              ]
+            },
+            "minLength": {
+              "$id": "#/properties/control/properties/resourceType/properties/minLength",
+              "type": "integer",
+              "title": "The minLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                2
+              ]
+            },
+            "maxLength": {
+              "$id": "#/properties/control/properties/resourceType/properties/maxLength",
+              "type": "integer",
+              "title": "The maxLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                5
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "environment": {
+          "$id": "#/properties/control/properties/environment",
+          "type": "object",
+          "title": "The environment schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+            {
+              "description": "Environment.",
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 3,
+              "regex": "^[a-zA-Z][0-9]{2}$"
+            }
+          ],
+          "required": [
+            "description",
+            "type",
+            "minLength",
+            "maxLength",
+            "regex"
+          ],
+          "properties": {
+            "description": {
+              "$id": "#/properties/control/properties/environment/properties/description",
+              "type": "string",
+              "title": "The description schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "Environment."
+              ]
+            },
+            "type": {
+              "$id": "#/properties/control/properties/environment/properties/type",
+              "type": "string",
+              "title": "The type schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "string"
+              ]
+            },
+            "minLength": {
+              "$id": "#/properties/control/properties/environment/properties/minLength",
+              "type": "integer",
+              "title": "The minLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                3
+              ]
+            },
+            "maxLength": {
+              "$id": "#/properties/control/properties/environment/properties/maxLength",
+              "type": "integer",
+              "title": "The maxLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                3
+              ]
+            },
+            "regex": {
+              "$id": "#/properties/control/properties/environment/properties/regex",
+              "type": "string",
+              "title": "The regex schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "^[a-zA-Z][0-9]{2}$"
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "location": {
+          "$id": "#/properties/control/properties/appIdentifier",
+          "type": "object",
+          "title": "The appIdentifier schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+            {
+              "description": "Location or Region of the public cloud provider",
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 5
+            }
+          ],
+          "required": [
+            "description",
+            "type",
+            "minLength",
+            "maxLength"
+          ],
+          "properties": {
+            "description": {
+              "$id": "#/properties/control/properties/appIdentifier/properties/description",
+              "type": "string",
+              "title": "The description schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "Location or Region of the public cloud provider"
+              ]
+            },
+            "type": {
+              "$id": "#/properties/control/properties/appIdentifier/properties/type",
+              "type": "string",
+              "title": "The type schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "string"
+              ]
+            },
+            "minLength": {
+              "$id": "#/properties/control/properties/appIdentifier/properties/minLength",
+              "type": "integer",
+              "title": "The minLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                2
+              ]
+            },
+            "maxLength": {
+              "$id": "#/properties/control/properties/appIdentifier/properties/maxLength",
+              "type": "integer",
+              "title": "The maxLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                5
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "appIdentifier": {
+          "$id": "#/properties/control/properties/appIdentifier",
+          "type": "object",
+          "title": "The appIdentifier schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+            {
+              "description": "Uniquely identifies the application.",
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 7
+            }
+          ],
+          "required": [
+            "description",
+            "type",
+            "minLength",
+            "maxLength"
+          ],
+          "properties": {
+            "description": {
+              "$id": "#/properties/control/properties/appIdentifier/properties/description",
+              "type": "string",
+              "title": "The description schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "Uniquely identifies the application."
+              ]
+            },
+            "type": {
+              "$id": "#/properties/control/properties/appIdentifier/properties/type",
+              "type": "string",
+              "title": "The type schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "string"
+              ]
+            },
+            "minLength": {
+              "$id": "#/properties/control/properties/appIdentifier/properties/minLength",
+              "type": "integer",
+              "title": "The minLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                3
+              ]
+            },
+            "maxLength": {
+              "$id": "#/properties/control/properties/appIdentifier/properties/maxLength",
+              "type": "integer",
+              "title": "The maxLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                7
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "associatedResourceType": {
+          "$id": "#/properties/control/properties/associatedResourceType",
+          "type": "object",
+          "title": "The associatedResourceType schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+            {
+              "description": "Associated resource type.",
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 5
+            }
+          ],
+          "required": [
+            "description",
+            "type",
+            "minLength",
+            "maxLength"
+          ],
+          "properties": {
+            "description": {
+              "$id": "#/properties/control/properties/associatedResourceType/properties/description",
+              "type": "string",
+              "title": "The description schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "Associated resource type."
+              ]
+            },
+            "type": {
+              "$id": "#/properties/control/properties/associatedResourceType/properties/type",
+              "type": "string",
+              "title": "The type schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "string"
+              ]
+            },
+            "minLength": {
+              "$id": "#/properties/control/properties/associatedResourceType/properties/minLength",
+              "type": "integer",
+              "title": "The minLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                2
+              ]
+            },
+            "maxLength": {
+              "$id": "#/properties/control/properties/associatedResourceType/properties/maxLength",
+              "type": "integer",
+              "title": "The maxLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                5
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "associatedResourceName": {
+          "$id": "#/properties/control/properties/associatedResourceName",
+          "type": "object",
+          "title": "The associatedResourceName schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+            {
+              "description": "Associated resource name.",
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 4,
+              "regex": "^[a-zA-Z0-9]+(-?[a-zA-Z0-9])*[a-zA-Z0-9]+$"
+            }
+          ],
+          "required": [
+            "description",
+            "type",
+            "minLength",
+            "maxLength",
+            "regex"
+          ],
+          "properties": {
+            "description": {
+              "$id": "#/properties/control/properties/associatedResourceName/properties/description",
+              "type": "string",
+              "title": "The description schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "Associated resource name."
+              ]
+            },
+            "type": {
+              "$id": "#/properties/control/properties/associatedResourceName/properties/type",
+              "type": "string",
+              "title": "The type schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "string"
+              ]
+            },
+            "minLength": {
+              "$id": "#/properties/control/properties/associatedResourceName/properties/minLength",
+              "type": "integer",
+              "title": "The minLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                2
+              ]
+            },
+            "maxLength": {
+              "$id": "#/properties/control/properties/associatedResourceName/properties/maxLength",
+              "type": "integer",
+              "title": "The maxLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                4
+              ]
+            },
+            "regex": {
+              "$id": "#/properties/control/properties/associatedResourceName/properties/regex",
+              "type": "string",
+              "title": "The regex schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "^[a-zA-Z0-9]+(-?[a-zA-Z0-9])*[a-zA-Z0-9]+$"
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "workloadType": {
+          "$id": "#/properties/control/properties/workloadType",
+          "type": "object",
+          "title": "The workloadType schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+            {
+              "description": "Workload type.",
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 3
+            }
+          ],
+          "required": [
+            "description",
+            "type",
+            "minLength",
+            "maxLength"
+          ],
+          "properties": {
+            "description": {
+              "$id": "#/properties/control/properties/workloadType/properties/description",
+              "type": "string",
+              "title": "The description schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "Workload type."
+              ]
+            },
+            "type": {
+              "$id": "#/properties/control/properties/workloadType/properties/type",
+              "type": "string",
+              "title": "The type schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "string"
+              ]
+            },
+            "minLength": {
+              "$id": "#/properties/control/properties/workloadType/properties/minLength",
+              "type": "integer",
+              "title": "The minLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                3
+              ]
+            },
+            "maxLength": {
+              "$id": "#/properties/control/properties/workloadType/properties/maxLength",
+              "type": "integer",
+              "title": "The maxLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                3
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "instance": {
+          "$id": "#/properties/control/properties/instance",
+          "type": "object",
+          "title": "The instance schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+            {
+              "description": "Instance number",
+              "type": "int",
+              "minValue": 1,
+              "maxValue": 99
+            }
+          ],
+          "required": [
+            "description",
+            "type",
+            "minValue",
+            "maxValue"
+          ],
+          "properties": {
+            "description": {
+              "$id": "#/properties/control/properties/instance/properties/description",
+              "type": "string",
+              "title": "The description schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "Instance number"
+              ]
+            },
+            "type": {
+              "$id": "#/properties/control/properties/instance/properties/type",
+              "type": "string",
+              "title": "The type schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "int"
+              ]
+            },
+            "minValue": {
+              "$id": "#/properties/control/properties/instance/properties/minValue",
+              "type": "integer",
+              "title": "The minValue schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                1
+              ]
+            },
+            "maxValue": {
+              "$id": "#/properties/control/properties/instance/properties/maxValue",
+              "type": "integer",
+              "title": "The maxValue schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                99
+              ]
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "allowedValues": {
+      "$id": "#/properties/allowedValues",
+      "type": "object",
+      "title": "The allowedValues schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": {},
+      "examples": [],
+      "required": [
+        "cloud",
+        "company",
+        "resourceType"
+      ],
+      "properties": {
+        "cloud": {
+          "$id": "#/properties/allowedValues/properties/cloud",
+          "type": "array",
+          "title": "The cloud schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [],
+          "additionalItems": true,
+          "items": {
+            "$id": "#/properties/allowedValues/properties/cloud/items",
+            "anyOf": [
+              {
+                "$id": "#/properties/allowedValues/properties/cloud/items/anyOf/0",
+                "type": "object",
+                "title": "The first anyOf schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": {},
+                "examples": [
+                  {
+                    "name": "azure",
+                    "description": "Microsoft Azure"
+                  },
+                  {
+                    "name": "aws",
+                    "description": "Amazon Web Services"
+                  },
+                  {
+                    "name": "gcp",
+                    "description": "Google Cloud Platform"
+                  }
+                ],
+                "required": [
+                  "name",
+                  "description"
+                ],
+                "properties": {
+                  "name": {
+                    "$id": "#/properties/allowedValues/properties/cloud/items/anyOf/0/properties/value",
+                    "type": "string",
+                    "title": "The name schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                      "azure"
+                    ]
+                  },
+                  "description": {
+                    "$id": "#/properties/allowedValues/properties/cloud/items/anyOf/0/properties/description",
+                    "type": "string",
+                    "title": "The description schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                      "Microsoft Azure"
+                    ]
+                  }
+                },
+                "additionalProperties": true
+              }
+            ]
+          }
+        },
+        "company": {
+          "$id": "#/properties/allowedValues/properties/company",
+          "type": "array",
+          "title": "The company schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [],
+          "additionalItems": true,
+          "items": {
+            "$id": "#/properties/allowedValues/properties/company/items",
+            "anyOf": [
+              {
+                "$id": "#/properties/allowedValues/properties/company/items/anyOf/0",
+                "type": "object",
+                "title": "The first anyOf schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": {},
+                "examples": [
+                  {
+                    "value": "contoso",
+                    "description": "Contoso Ltd."
+                  }
+                ],
+                "required": [
+                  "value",
+                  "description"
+                ],
+                "properties": {
+                  "value": {
+                    "$id": "#/properties/allowedValues/properties/company/items/anyOf/0/properties/value",
+                    "type": "string",
+                    "title": "The value schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                      "contoso"
+                    ]
+                  },
+                  "description": {
+                    "$id": "#/properties/allowedValues/properties/company/items/anyOf/0/properties/description",
+                    "type": "string",
+                    "title": "The description schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                      "Contoso Ltd."
+                    ]
+                  }
+                },
+                "additionalProperties": true
+              }
+            ]
+          }
+        },
+        "resourceType": {
+          "$id": "#/properties/allowedValues/properties/resourceType",
+          "type": "array",
+          "title": "The resourceType schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [],
+          "additionalItems": true,
+          "items": {
+            "$id": "#/properties/allowedValues/properties/resourceType/items",
+            "anyOf": [
+              {
+                "$id": "#/properties/allowedValues/properties/resourceType/items/anyOf/0",
+                "type": "object",
+                "title": "The first anyOf schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": {},
+                "examples": [],
+                "required": [
+                  "value",
+                  "description",
+                  "cloud",
+                  "minLength",
+                  "maxLength",
+                  "case",
+                  "leadingZeros",
+                  "pattern"
+                ],
+                "properties": {
+                  "value": {
+                    "$id": "#/properties/allowedValues/properties/resourceType/items/anyOf/0/properties/value",
+                    "type": "string",
+                    "title": "The value schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                      "aa"
+                    ]
+                  },
+                  "cloud": {
+                    "$id": "#/properties/allowedValues/properties/resourceType/items/anyOf/0/properties/cloud",
+                    "type": "string",
+                    "title": "The cloud schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                      "azure"
+                    ]
+                  },
+                  "description": {
+                    "$id": "#/properties/allowedValues/properties/resourceType/items/anyOf/0/properties/description",
+                    "type": "string",
+                    "title": "The description schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                      "Automation Account"
+                    ]
+                  },
+                  "minLength": {
+                    "$id": "#/properties/allowedValues/properties/resourceType/items/anyOf/0/properties/minLength",
+                    "type": "integer",
+                    "title": "The minLength schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0,
+                    "examples": [
+                      6
+                    ]
+                  },
+                  "maxLength": {
+                    "$id": "#/properties/allowedValues/properties/resourceType/items/anyOf/0/properties/maxLength",
+                    "type": "integer",
+                    "title": "The maxLength schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0,
+                    "examples": [
+                      50
+                    ]
+                  },
+                  "case": {
+                    "$id": "#/properties/allowedValues/properties/resourceType/items/anyOf/0/properties/case",
+                    "type": "string",
+                    "title": "The case schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                      "lower"
+                    ]
+                  },
+                  "leadingZeros": {
+                    "$id": "#/properties/allowedValues/properties/resourceType/items/anyOf/0/properties/leadingZeros",
+                    "type": "boolean",
+                    "title": "The leadingZeros schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": false,
+                    "examples": [
+                      true
+                    ]
+                  },
+                  "pattern": {
+                    "$id": "#/properties/allowedValues/properties/resourceType/items/anyOf/0/properties/pattern",
+                    "type": "string",
+                    "title": "The pattern schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                      "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+                    ]
+                  }
+                },
+                "additionalProperties": true
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
