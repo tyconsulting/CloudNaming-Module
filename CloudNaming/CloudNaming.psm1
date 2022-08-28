@@ -1,3 +1,6 @@
+# Copyright (c) TY Consulting.
+# Licensed under the MIT License.
+
 function ReadConfigFile {
   [CmdletBinding()]
   [OutputType([Object])]

@@ -1,8 +1,11 @@
+# Copyright (c) TY Consulting.
+# Licensed under the MIT License.
+
 #Requires -Modules PowerShellGet
 #Requires -Version 5.0
 <#
     =======================================================================================================
-    AUTHOR:  Tao Yang 
+    AUTHOR:  Tao Yang
     DATE:    05/09/2018
     Version: 1.0
     Comment: generate nuget specification file (.nuspec) based on PowerShell module manifest (.psd1) file
@@ -209,7 +212,7 @@ function New-NuSpecFile {
   $CompanyName = $null
   $Copyright = $null
   $requireLicenseAcceptance = 'false'
- 
+
   $PSModuleInfo = Test-ModuleManifest -Path $ManifestPath
   If (-not $PSModuleInfo) {
     Throw "Failed to retrieve module information from manifest '$ManifestPath'"
@@ -346,7 +349,7 @@ function New-NuSpecFile {
   if ($ModuleManifestHashTable.NestedModules) {
     $requiredModules += $ModuleManifestHashTable.NestedModules
   }
-  
+
   Write-Verbose "Total dependent modules: $($requiredModules.count)"
   Foreach ($requiredModule in $requiredModules) {
     $DependentModuleDetail = @{}
@@ -368,7 +371,7 @@ function New-NuSpecFile {
     $DependentModuleDetail.add('Name', $ModuleName)
     $DependentModuleDetails += $DependentModuleDetail
   }
- 
+
   $dependencies = @()
   ForEach ($Dependency in $DependentModuleDetails) {
     $ModuleName = $Dependency.Name

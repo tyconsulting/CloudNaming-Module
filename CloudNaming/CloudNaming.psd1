@@ -1,3 +1,5 @@
+# Copyright (c) TY Consulting.
+# Licensed under the MIT License.
 #
 # Module manifest for module 'CloudNaming'
 #
