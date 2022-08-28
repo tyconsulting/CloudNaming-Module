@@ -1,3 +1,6 @@
+# Copyright (c) TY Consulting.
+# Licensed under the MIT License.
+
 function ReadConfigFile {
   [CmdletBinding()]
   [OutputType([Object])]
@@ -34,7 +37,7 @@ function ValidateConfigFileSchema {
 }
 function ValidateInput {
   [CmdletBinding()]
-  [OutputType([Object])]
+  [OutputType([System.Collections.Hashtable])]
   Param
   (
     [Parameter(Mandatory = $true)][object]$config,
@@ -453,16 +456,16 @@ function GetCloudNamingSupportedTypes {
     [String]$cloud
   )
   #Read configuration file
-  if ($PSBoundParameters.ContainsKey('configFilePath')) {
+  if ($configFilePath) {
     Write-Verbose "Custom configuration file specified: '$configFilePath'"
+    $config = ReadConfigFile -configFilePath $configFilePath
   } else {
-    $configFilePath = Join-Path $PSScriptRoot 'CloudNaming.json' -Resolve
-    Write-Verbose "No custom configuration file specified. Using default configuration file from the CloudNaming module directory: '$configFilePath'"
+    Write-Verbose "No custom configuration file specified. Using default configuration file from the CloudNaming module directory"
+    $config = ReadConfigFile -configFilePath $(Join-Path $PSScriptRoot 'CloudNaming.json' -Resolve)
   }
-  Write-verbose "Read Cloud Naming configuration file '$configFilePath'"
 
   try {
-    $config = ReadConfigFile -configFilePath $configFilePath
+
   } catch {
     #throw "Unable to read configuration file"
     throw $_

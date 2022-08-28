@@ -1,8 +1,11 @@
+# Copyright (c) TY Consulting.
+# Licensed under the MIT License.
+
 #Requires -Modules PowerShellGet
 #Requires -Version 5.0
 <#
     =======================================================================================================
-    AUTHOR:  Tao Yang 
+    AUTHOR:  Tao Yang
     DATE:    05/09/2018
     Version: 1.0
     Comment: generate nuget specification file (.nuspec) based on PowerShell module manifest (.psd1) file
@@ -26,7 +29,7 @@ Param
   $DestinationFolder
 )
 #region functions
-function Get-EscapedString {
+function GetEscapedString {
   [CmdletBinding()]
   [OutputType([String])]
   Param
@@ -38,7 +41,7 @@ function Get-EscapedString {
 
   return [System.Security.SecurityElement]::Escape($ElementValue)
 }
-function Get-ExportedDscResources {
+function GetExportedDscResource {
   [CmdletBinding(PositionalBinding = $false)]
   Param
   (
@@ -67,7 +70,7 @@ function Get-ExportedDscResources {
       $env:PSModulePath = $OldPSModulePath
     }
   } else {
-    $dscResourcesDir = Join-PathUtility -Path $PSModuleInfo.ModuleBase -ChildPath 'DscResources' -PathType Directory
+    $dscResourcesDir = JoinPathUtility -Path $PSModuleInfo.ModuleBase -ChildPath 'DscResources' -PathType Directory
     if (Microsoft.PowerShell.Management\Test-Path $dscResourcesDir) {
       $dscResources = Microsoft.PowerShell.Management\Get-ChildItem -Path $dscResourcesDir -Directory -Name
     }
@@ -75,7 +78,7 @@ function Get-ExportedDscResources {
 
   return $dscResources
 }
-function Get-AvailableRoleCapabilityName {
+function GetAvailableRoleCapabilityName {
   [CmdletBinding(PositionalBinding = $false)]
   Param
   (
@@ -87,7 +90,7 @@ function Get-AvailableRoleCapabilityName {
 
   $RoleCapabilityNames = @()
 
-  $RoleCapabilitiesDir = Join-PathUtility -Path $PSModuleInfo.ModuleBase -ChildPath 'RoleCapabilities' -PathType Directory
+  $RoleCapabilitiesDir = JoinPathUtility -Path $PSModuleInfo.ModuleBase -ChildPath 'RoleCapabilities' -PathType Directory
   if (Microsoft.PowerShell.Management\Test-Path -Path $RoleCapabilitiesDir -PathType Container) {
     $RoleCapabilityNames = Microsoft.PowerShell.Management\Get-ChildItem -Path $RoleCapabilitiesDir `
       -Name -Filter *.psrc |
@@ -98,7 +101,7 @@ function Get-AvailableRoleCapabilityName {
 
   return $RoleCapabilityNames
 }
-function Join-PathUtility {
+function JoinPathUtility {
   <#
       .DESCRIPTION
       Utility to get the case-sensitive path, if exists.
@@ -150,7 +153,7 @@ function Join-PathUtility {
 
   return $JoinedPath
 }
-function Get-ManifestHashTable {
+function GetManifestHashTable {
   param
   (
     [Parameter(Mandatory = $true)]
@@ -187,7 +190,7 @@ function Get-ManifestHashTable {
   return $scriptBlock.InvokeReturnAsIs()
 }
 
-function New-NuSpecFile {
+function NewNuSpecFile {
   [CmdletBinding(PositionalBinding = $false)]
   Param
   (
@@ -209,7 +212,7 @@ function New-NuSpecFile {
   $CompanyName = $null
   $Copyright = $null
   $requireLicenseAcceptance = 'false'
- 
+
   $PSModuleInfo = Test-ModuleManifest -Path $ManifestPath
   If (-not $PSModuleInfo) {
     Throw "Failed to retrieve module information from manifest '$ManifestPath'"
@@ -270,13 +273,13 @@ function New-NuSpecFile {
           Throw $message
         }
 
-        $LicenseFilePath = Join-PathUtility -Path $PSModuleInfo.ModuleBase -ChildPath 'License.txt' -PathType File
+        $LicenseFilePath = JoinPathUtility -Path $PSModuleInfo.ModuleBase -ChildPath 'License.txt' -PathType File
         if (-not $LicenseFilePath -or -not (Test-Path -Path $LicenseFilePath -PathType Leaf)) {
           $message = 'License.txt not Found. License.txt must be provided when user license acceptance is required.'
           Throw $message
         }
 
-        if ((Get-Content -LiteralPath $LicenseFilePath) -eq $null) {
+        if ($null -eq (Get-Content -LiteralPath $LicenseFilePath)) {
           $message = 'License.txt is empty.'
           Throw $message
         }
@@ -295,7 +298,7 @@ function New-NuSpecFile {
 
   $DependentModuleDetails = @()
   $Tags += 'PSModule'
-  $ModuleManifestHashTable = Get-ManifestHashTable -Path $ManifestPath
+  $ModuleManifestHashTable = GetManifestHashTable -Path $ManifestPath
   if ($PSModuleInfo.ExportedCommands.Count) {
     if ($PSModuleInfo.ExportedCmdlets.Count) {
       $Tags += 'PSIncludes_Cmdlet'
@@ -316,7 +319,7 @@ function New-NuSpecFile {
     }
   }
 
-  $dscResourceNames = Get-ExportedDscResources -PSModuleInfo $PSModuleInfo
+  $dscResourceNames = GetExportedDscResource -PSModuleInfo $PSModuleInfo
   if ($dscResourceNames) {
     $Tags += 'PSIncludes_DscResource'
 
@@ -325,7 +328,7 @@ function New-NuSpecFile {
     }
   }
 
-  $RoleCapabilityNames = Get-AvailableRoleCapabilityName -PSModuleInfo $PSModuleInfo
+  $RoleCapabilityNames = GetAvailableRoleCapabilityName -PSModuleInfo $PSModuleInfo
   if ($RoleCapabilityNames) {
     $Tags += 'PSIncludes_RoleCapability'
 
@@ -346,7 +349,7 @@ function New-NuSpecFile {
   if ($ModuleManifestHashTable.NestedModules) {
     $requiredModules += $ModuleManifestHashTable.NestedModules
   }
-  
+
   Write-Verbose "Total dependent modules: $($requiredModules.count)"
   Foreach ($requiredModule in $requiredModules) {
     $DependentModuleDetail = @{}
@@ -368,7 +371,7 @@ function New-NuSpecFile {
     $DependentModuleDetail.add('Name', $ModuleName)
     $DependentModuleDetails += $DependentModuleDetail
   }
- 
+
   $dependencies = @()
   ForEach ($Dependency in $DependentModuleDetails) {
     $ModuleName = $Dependency.Name
@@ -402,26 +405,26 @@ function New-NuSpecFile {
 <?xml version="1.0"?>
 <package >
     <metadata>
-        <id>$(Get-EscapedString -ElementValue "$Name")</id>
+        <id>$(GetEscapedString -ElementValue "$Name")</id>
         <version>$($Version)</version>
-        <authors>$(Get-EscapedString -ElementValue "$Author")</authors>
-        <owners>$(Get-EscapedString -ElementValue "$CompanyName")</owners>
-        <description>$(Get-EscapedString -ElementValue "$Description")</description>
-        <releaseNotes>$(Get-EscapedString -ElementValue "$ReleaseNotes")</releaseNotes>
+        <authors>$(GetEscapedString -ElementValue "$Author")</authors>
+        <owners>$(GetEscapedString -ElementValue "$CompanyName")</owners>
+        <description>$(GetEscapedString -ElementValue "$Description")</description>
+        <releaseNotes>$(GetEscapedString -ElementValue "$ReleaseNotes")</releaseNotes>
         <requireLicenseAcceptance>$($requireLicenseAcceptance.ToString())</requireLicenseAcceptance>
-        <copyright>$(Get-EscapedString -ElementValue "$Copyright")</copyright>
-        <tags>$(if($Tags){ Get-EscapedString -ElementValue ($Tags -join ' ')})</tags>
+        <copyright>$(GetEscapedString -ElementValue "$Copyright")</copyright>
+        <tags>$(if($Tags){ GetEscapedString -ElementValue ($Tags -join ' ')})</tags>
         $(if($LicenseUri)
 {
-         "<licenseUrl>$(Get-EscapedString -ElementValue "$LicenseUri")</licenseUrl>"
+        "<licenseUrl>$(GetEscapedString -ElementValue "$LicenseUri")</licenseUrl>"
 })
         $(if($ProjectUri)
 {
-        "<projectUrl>$(Get-EscapedString -ElementValue "$ProjectUri")</projectUrl>"
+        "<projectUrl>$(GetEscapedString -ElementValue "$ProjectUri")</projectUrl>"
 })
         $(if($IconUri)
 {
-        "<iconUrl>$(Get-EscapedString -ElementValue "$IconUri")</iconUrl>"
+        "<iconUrl>$(GetEscapedString -ElementValue "$IconUri")</iconUrl>"
 })
         <dependencies>
             $dependencies
@@ -463,7 +466,7 @@ $param = @{
 If ($PSBoundParameters.ContainsKey('DestinationFolder')) {
   $param.Add('DestinationFolder', $DestinationFolder)
 }
-$NuspecFile = New-NuSpecFile @param
+$NuspecFile = NewNuSpecFile @param
 If ($NuspecFile) {
   Write-Output "Nuspec file created - '$NuspecFile'."
   Write-Output "Done. "
