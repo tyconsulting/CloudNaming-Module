@@ -14,7 +14,7 @@
   RootModule            = 'CloudNaming.psm1'
 
   # Version number of this module.
-  ModuleVersion         = '0.2.0'
+  ModuleVersion         = '0.2.1'
 
   # Supported PSEditions
   # CompatiblePSEditions = @()
@@ -97,13 +97,13 @@
     PSData = @{
 
       # Tags applied to this module. These help with module discovery in online galleries.
-      Tags = @('Azure', 'Naming', 'Cloud')
+      Tags       = @('Azure', 'Naming', 'Cloud')
 
       # A URL to the license for this module.
-      # LicenseUri = ''
+      LicenseUri = 'https://github.com/tyconsulting/CloudNaming-Module/blob/master/LICENSE'
 
       # A URL to the main website for this project.
-      # ProjectUri = ''
+      ProjectUri = 'https://github.com/tyconsulting/CloudNaming-Module'
 
       # A URL to an icon representing this module.
       # IconUri = ''
@@ -125,7 +125,7 @@
   } # End of PrivateData hashtable
 
   # HelpInfo URI of this module
-  # HelpInfoURI = ''
+  HelpInfoURI           = 'https://github.com/tyconsulting/CloudNaming-Module/wiki'
 
   # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
   # DefaultCommandPrefix = ''
