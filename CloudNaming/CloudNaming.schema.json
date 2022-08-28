@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "http://example.com/example.json",
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://github.com/tyconsulting/CloudNaming-Module/blob/master/CloudNaming/CloudNaming.schema.json",
   "type": "object",
   "title": "The root schema",
   "description": "The root schema comprises the entire JSON document.",
@@ -282,7 +282,7 @@
           "additionalProperties": true
         },
         "location": {
-          "$id": "#/properties/control/properties/appIdentifier",
+          "$id": "#/properties/control/properties/location",
           "type": "object",
           "title": "The appIdentifier schema",
           "description": "An explanation about the purpose of this instance.",
@@ -303,40 +303,40 @@
           ],
           "properties": {
             "description": {
-              "$id": "#/properties/control/properties/appIdentifier/properties/description",
+              "$id": "#/properties/control/properties/location/properties/description",
               "type": "string",
-              "title": "The description schema",
-              "description": "An explanation about the purpose of this instance.",
+              "title": "The location description schema",
+              "description": "description of the location.",
               "default": "",
               "examples": [
                 "Location or Region of the public cloud provider"
               ]
             },
             "type": {
-              "$id": "#/properties/control/properties/appIdentifier/properties/type",
+              "$id": "#/properties/control/properties/location/properties/type",
               "type": "string",
-              "title": "The type schema",
-              "description": "An explanation about the purpose of this instance.",
+              "title": "The location type schema",
+              "description": "An data type of the location.",
               "default": "",
               "examples": [
                 "string"
               ]
             },
             "minLength": {
-              "$id": "#/properties/control/properties/appIdentifier/properties/minLength",
+              "$id": "#/properties/control/properties/location/properties/minLength",
               "type": "integer",
               "title": "The minLength schema",
-              "description": "An explanation about the purpose of this instance.",
+              "description": "location string minimum length.",
               "default": 0,
               "examples": [
                 2
               ]
             },
             "maxLength": {
-              "$id": "#/properties/control/properties/appIdentifier/properties/maxLength",
+              "$id": "#/properties/control/properties/location/properties/maxLength",
               "type": "integer",
               "title": "The maxLength schema",
-              "description": "An explanation about the purpose of this instance.",
+              "description": "location string maximum leangth.",
               "default": 0,
               "examples": [
                 5
@@ -370,7 +370,7 @@
               "$id": "#/properties/control/properties/appIdentifier/properties/description",
               "type": "string",
               "title": "The description schema",
-              "description": "An explanation about the purpose of this instance.",
+              "description": "appIdentifier description.",
               "default": "",
               "examples": [
                 "Uniquely identifies the application."
@@ -380,7 +380,7 @@
               "$id": "#/properties/control/properties/appIdentifier/properties/type",
               "type": "string",
               "title": "The type schema",
-              "description": "An explanation about the purpose of this instance.",
+              "description": "data type of the appIdentifier",
               "default": "",
               "examples": [
                 "string"
@@ -390,7 +390,7 @@
               "$id": "#/properties/control/properties/appIdentifier/properties/minLength",
               "type": "integer",
               "title": "The minLength schema",
-              "description": "An explanation about the purpose of this instance.",
+              "description": "Minimum length for the appIdentifier.",
               "default": 0,
               "examples": [
                 3
