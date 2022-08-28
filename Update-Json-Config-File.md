@@ -49,8 +49,8 @@ The following values are defined in the `control` section of the `CloudNaming.js
 | Name | Description | Type | MinLength Support | MaxLength Support | MinValue Support | MaxValue Support | Regex Support |
 |------|-------------|:----:|:-----------------:|:-----------------:|:----------------:|:----------------:|:-------------:|
 | company | company abbreviation | string | Yes | Yes | No | No | No |
-| resourceType | related to the `type` parameter, representing the Azure resource type | string | Yes | Yes | No | No | No |
-| environment | related to the `environment` parameter. representing Contoso's Azure environment code | string | Yes | Yes | No | No | Yes |
+| resourceType | related to the `type` parameter, representing the Cloud resource type | string | Yes | Yes | No | No | No |
+| environment | related to the `environment` parameter. representing Contoso's Cloud environment code | string | Yes | Yes | No | No | Yes |
 | appIdentifier | related to the 'appIdentifier' parameter. | string | Yes | Yes | No | No | No |
 | associatedResourceType | representing the `associatedResourceType` parameter | string | Yes | Yes | No | No | No |
 | associatedResourceName | representing the `associatedResourceName` parameter | string | Yes | Yes | No | No | Yes |
@@ -61,18 +61,18 @@ The following values are defined in the `control` section of the `CloudNaming.js
 
 #### Updating Allowed Values for the Company
 
-This `company` array represents all the possible business unit / company abbreviations within Contoso that can be used to construct some of the Azure resource names. this array can be update accordingly.
+This `company` array represents all the possible business unit / company abbreviations within Contoso that can be used to construct some of the Cloud resource names. this array can be update accordingly.
 
 >**NOTE**: the value **contoso** is also defined as the default value for the `-company` input parameter. when this value is changed, please also update the default value for the `-company` parameter of the `GetCloudResourceName` command in the [`CloudNaming.psm1`](./CloudNaming/CloudNaming.psm1) file.
 
 #### Updating Allowed values for Resource Types
 
-the `resourceType` section defines each supported Azure resource types by the `CloudNaming module`. each block contains the following attributes:
+the `resourceType` section defines each supported Cloud resource types by the `CloudNaming module`. each block contains the following attributes:
 
-* **value**: the short name of the resource type defined by the Contoso Azure Naming Standard.
+* **value**: the short name of the resource type defined by the Contoso Cloud Naming Standard.
 * **description**: the common name for the resource type.
-* **minLength**: Azure's minimum supported length of the name for this resource type
-* **maxLength**: Azure's maximum supported length of the name for this resource type
+* **minLength**: Cloud's minimum supported length of the name for this resource type
+* **maxLength**: Cloud's maximum supported length of the name for this resource type
 * **case**: the `lower` or `upper` case for the name generated for this resource type
 * **leadingZeros**: Boolean, specify if the instance number should contain leading zeros. i.e. if the maximum instance count (specified in the `maxValue` for the `instance` in the `control` section) is `99`, the instance numbers would be `01...99`. If the maximum instance count is `999`, the instance numbers would be `001...099...999`.
 * **pattern**: the naming pattern for the resource type. it is formed with some (or all) parameters defined in the `control` section. Each parameter is wrapped using curly brackets `{}`.
@@ -81,9 +81,9 @@ Resource types can be added, deleted and updated in the `resourceType` section. 
 
 * No duplicate value in the "value" attributes (meaning no resource types sharing the same abbreviation)
 * No duplicate value in the "description" attribute. This attribute is used by the `GetCloudNamingSupportedTypes` command, which is used to search for supported resource types.
-* Make sure the `minLength` and `maxLength` for the particular resource type is clearly defined according to Microsoft Azure's naming requirements. Each generated name are validated against these values to ensure it can be indeed used in Azure.
-* Make sure the correct case is defined. Some Azure resource types have such requirements i.e. Names for Azure Storage Account can only be in lower case.
-* Make sure the pattern you specified complies with the requirements in Azure. i.e. some resource names cannot start with a number, no consecutive dashes `-`, etc.
+* Make sure the `minLength` and `maxLength` for the particular resource type is clearly defined according to the cloud provider's naming requirements. Each generated name are validated against these values to ensure it can be indeed used in particular cloud.
+* Make sure the correct case is defined. Some cloud resource types have such requirements i.e. Names for Azure Storage Account can only be in lower case.
+* Make sure the pattern you specified complies with the requirements from the cloud provider. i.e. some resource names cannot start with a number, no consecutive dashes `-`, etc.
 
 ### Validation
 

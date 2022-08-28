@@ -2,11 +2,11 @@
 
 ## Introduction
 
-THe **CloudNaming** PowerShell module is designed to be used as a standalone tool or a component that can be called within an Azure DevOps pipeline to automatically generate resource names for the new sources to be created in Azure.
+THe **CloudNaming** PowerShell module is designed to be used as a standalone tool or a component that can be called within an Azure DevOps pipeline to automatically generate resource names for the new sources to be created in Cloud.
 
-It supports all the resources listed in Contoso's Azure Naming standard document.
+It supports all the resources listed in Contoso's Cloud Naming standard document.
 
-This document explains how it can be used to generate Azure resource names.
+This document explains how it can be used to generate Cloud resource names.
 
 ## Instruction
 

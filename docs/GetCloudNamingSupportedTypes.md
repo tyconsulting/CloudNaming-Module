@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get supported Azure resource types from the CloudNaming module
+Get supported cloud resource types from the CloudNaming module
 
 ## SYNTAX
 

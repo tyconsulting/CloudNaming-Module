@@ -1,4 +1,4 @@
-# PowerShell module for Azure Naming Standard
+# PowerShell module for Cloud Naming Standard
 
 This folder contains the CloudNaming PowerShell module and the pipeline to deploy it to a NuGet feed hosted on Contoso's internal ADO server.
 
@@ -17,7 +17,7 @@ Import-Module <path to CloudNaming.psm1>
 
 ## Documentation
 
-The CloudNaming module contains 2 functions that can be used in generating Azure resource names for Contoso. The documentation for these 2 functions are located in the [docs](./docs) folder:
+The CloudNaming module contains 2 functions that can be used in generating Cloud resource names for Contoso. The documentation for these 2 functions are located in the [docs](./docs) folder:
 
 * [GetCloudNamingSuportedTypes](./docs/GetCloudNamingSupportedTypes.md)
 * [GetCloudResourceName.md](./docs/GetCloudResourceName.md)

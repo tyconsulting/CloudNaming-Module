@@ -253,7 +253,7 @@ function GetCloudResourceName {
     [Parameter(ParameterSetName = 'AllSupportedTypes', Mandatory = $true, HelpMessage = "Cloud Provider")]
     [String[]]$cloud,
 
-    [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $true, HelpMessage = "OPTIONAL: Azure resource type. If not specified, all supported types will be returned.")]
+    [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $true, HelpMessage = "OPTIONAL: Cloud resource type. If not specified, all supported types will be returned.")]
     [String[]]$type,
 
     [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $false, HelpMessage = "OPTIONAL: Company or Business Unit name. If not specified, the first value defined in the allowedValue section in the configuration file is the default value.")]
@@ -301,7 +301,7 @@ function GetCloudResourceName {
     $configFilePath = Join-Path $PSScriptRoot 'CloudNaming.json' -Resolve
     Write-Verbose "No custom configuration file specified. Using default configuration file from the CloudNaming module directory: '$configFilePath'"
   }
-  Write-verbose "Read Azure Naming configuration file '$configFilePath'"
+  Write-verbose "Read Cloud Naming configuration file '$configFilePath'"
 
   try {
     $config = ReadConfigFile -configFilePath $configFilePath
@@ -459,7 +459,7 @@ function GetCloudNamingSupportedTypes {
     $configFilePath = Join-Path $PSScriptRoot 'CloudNaming.json' -Resolve
     Write-Verbose "No custom configuration file specified. Using default configuration file from the CloudNaming module directory: '$configFilePath'"
   }
-  Write-verbose "Read Azure Naming configuration file '$configFilePath'"
+  Write-verbose "Read Cloud Naming configuration file '$configFilePath'"
 
   try {
     $config = ReadConfigFile -configFilePath $configFilePath
