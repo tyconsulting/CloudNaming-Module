@@ -8,19 +8,17 @@ schema: 2.0.0
 # GetCloudNamingSupportedTypes
 
 ## SYNOPSIS
-
-Get supported cloud resource types from the CloudNaming module
+Get supported Azure resource types from the CloudNaming module
 
 ## SYNTAX
 
 ```
-GetCloudNamingSupportedTypes [-configFilePath <String>] [[-searchString] <String>] [-cloud <String>]
+GetCloudNamingSupportedTypes [[-configFilePath] <String>] [[-searchString] <String>] [[-cloud] <String>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-
-List or search supported cloud resource types from the CloudNaming module
+List or search supported cloud resource types from the CloudNaming module.
 
 ## EXAMPLES
 
@@ -58,12 +56,26 @@ Search supported resource types for Azure from a custom configuration file and c
 
 ## PARAMETERS
 
-### -searchString
-
-OPTIONAL: Resource type search string.
-RegEx is supported.
+### -cloud
+OPTIONAL: Cloud Provider to search for.
 i.e.
-'^virtual machine$'
+'Azure'
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -configFilePath
+OPTIONAL: The custom configuration file to use.
+If not specified, the default configuration file 'CloudNaming.json' from the module directory will be used.
 
 ```yaml
 Type: String
@@ -77,27 +89,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -cloud
-
-OPTIONAL: Cloud Provider to search for.
-i.e. 'Azure'
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -configFilePath
-
-OPTIONAL: The custom configuration file to use.
-If not specified, the default configuration file 'CloudNaming.json' from the module directory will be used.
+### -searchString
+OPTIONAL: Resource type search string.
+RegEx is supported.
+i.e.
+'^virtual machine$'
 
 ```yaml
 Type: String
@@ -105,7 +101,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -116,7 +112,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.String
+### None
 
 ## OUTPUTS
 

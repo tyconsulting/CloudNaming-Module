@@ -1,6 +1,6 @@
 # PowerShell module for Cloud Naming Standard
 
-This folder contains the CloudNaming PowerShell module and the pipeline to deploy it to a NuGet feed hosted on Contoso's internal ADO server.
+This folder contains the CloudNaming PowerShell module.
 
 | Version | Date | Author | Note |
 | :-----: | :--: | :----- | :--- |

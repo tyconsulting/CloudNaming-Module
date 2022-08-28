@@ -8,7 +8,7 @@ schema: 2.0.0
 # GetCloudResourceName
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Generate cloud resource names based on pre-defined naming standard.
 
 ## SYNTAX
 
@@ -29,17 +29,121 @@ GetCloudResourceName [-configFilePath <String>] -cloud <String[]> -type <String[
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Generate cloud resource names based on pre-defined naming standard. Output is a deserialized Json payload. You can use ConvertFrom-Json cmdlet to convert the output into an object or an array of objects
+
+## EXAMPLES
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> GetCloudResourceName -cloud 'azure' -company 'abc' -environment 'p01' -location 'aue' -appIdentifier 'test' -startInstanceNumber 1 -instanceCount 2
 ```
 
-{{ Add example description here }}
+Generate 2 names for each supported resource types with starting sequence number of 1 and the following additional parameters:
 
+-Cloud: Azure
+
+-Company: abc
+
+-environment: p01
+
+-appIdentifier: test
+
+### Example 2
+
+```powershell
+PS C:\> GetCloudResourceName -cloud 'azure' -type 'sa' -company 'abc' -environment 'p01' -appIdentifier 'test'
+```
+
+Generate 1 name for Azure storage account with default starting sequence number of 1 and the following additional parameters:
+
+-Company: abc
+
+-environment: p01
+
+-location: aue
+
+-appIdentifier: test
+
+### Example 3
+
+```powershell
+PS C:\> GetCloudResourceName -cloud 'azure' -type 'sa', 'kv' -company 'abc' -environment 'p01' -location aue -appIdentifier 'test' -startInstanceNumber 2 -instanceCount 3 | ConvertFrom-Json
+```
+
+Generate 3 names for Storage Account and Key Vault for Azure with starting sequence number of 2 and the following additional parameters, and convert output to an array of objects:
+
+-Company: abc
+
+-environment: p01
+
+-location: aue
+
+-appIdentifier: test
+
+### Example 4
+
+```powershell
+PS C:\> GetCloudResourceName -cloud 'azure' -type 'sub' -company 'abc' -workloadType 'pl' -environment 'p01' -appIdentifier 'corp' | ConvertFrom-Json
+```
+
+Generate 1 name for an Azure subscription with the following parameters, and convert output to an array of objects:
+
+-Company: abc
+
+-workloadType lz
+
+-environment: p01
+
+-appIdentifier: corp
+
+### Example 5
+
+```powershell
+PS C:\> GetCloudResourceName -cloud 'aws' -type 'ec2' -workloadType 'db' -location 'aue' -environment 'p01' -appIdentifier 'bizapp' | ConvertFrom-Json
+```
+
+Generate 1 name for an AWS EC2 instance with the following parameters, and convert output to an array of objects:
+
+-workloadType: db
+
+-location: aue
+
+-environment: p01
+
+-appIdentifier: bizapp
+
+### Example 6
+
+```powershell
+PS C:\> GetCloudResourceName -cloud 'gcp' -type 'proj' -environment 'p01' -appIdentifier 'bizapp' | ConvertFrom-Json
+```
+
+Generate 1 name for a GCP project, and convert output to an array of objects:
+
+-environment: p01
+
+-appIdentifier: bizapp
+
+### Example 7
+
+```powershell
+PS C:\> GetCloudResourceName -cloud 'azure' -configFilePath 'C:\Temp\config.json' -type 'sub' -company 'IT' -workloadType 'pl' -environment 'p01' -appIdentifier 'corp' | ConvertFrom-Json
+```
+
+Generate 1 name for an Azure subscription using a custom configuration file with the following parameters, and convert output to an array of objects:
+
+-ConfigFilePath: C:\\temp\\config.json
+
+-Company or BusinessUnit: IT
+
+-workloadType pl
+
+-environment: p01
+
+-appIdentifier: corp
 ## PARAMETERS
 
 ### -appIdentifier
