@@ -1,11 +1,37 @@
 function ReadConfigFile {
   [CmdletBinding()]
   [OutputType([Object])]
-  $configFilePath = Join-Path $PSScriptRoot 'CloudNaming.json'
+  Param
+  (
+    [Parameter(Mandatory = $true)][string]$configFilePath
+  )
+
+  #Config File schema validation
+  Write-Verbose "JSON schema validation for configuration file '$ConfigFilePath'"
+  if (ValidateConfigFileSchema -configFilePath $configFilePath) {
+    Write-Verbose "the configuration file '$ConfigFilePath' is valid against the schema."
+  } else {
+    Throw "The configuration file '$ConfigFilePath' is not valid against the schema."
+    Exit -1
+  }
+
   $config = Get-Content $configFilePath | ConvertFrom-Json
   $config
 }
 
+function ValidateConfigFileSchema {
+  [CmdletBinding()]
+  [OutputType([Object])]
+  Param
+  (
+    [Parameter(Mandatory = $true)][string]$configFilePath
+  )
+
+  $schemaPath = Join-Path $PSScriptRoot 'CloudNaming.schema.json'
+  $schema = get-content -Path $schemaPath -Raw
+  $configFileContent = Get-Content -Path $configFilePath -Raw
+  Test-Json -Json $configFileContent -Schema $schema
+}
 function ValidateInput {
   [CmdletBinding()]
   [OutputType([Object])]
@@ -34,7 +60,7 @@ function ValidateInput {
   $bValidType = $true
   if ($PSBoundParameters.ContainsKey('type')) {
     foreach ($item in $type) {
-      if (!($config.allowedValues.resourceType | Where-Object { $_.value -ieq $item })) {
+      if (!($config.allowedValues.resourceType | Where-Object { $_.value -ieq $item -and $_.cloud -ieq $cloud })) {
         $bValidType = $false
       }
     }
@@ -51,6 +77,14 @@ function ValidateInput {
   if ($PSBoundParameters.ContainsKey('environment')) {
     if ($($environment.Length) -ge $config.control.environment.minLength -and $($environment.Length) -le $config.control.environment.maxLength -and $environment -match $config.control.environment.regex) {
       $bValidEnvironment = $true
+    }
+  }
+
+  #Validate location
+  $bValidLocation = $false
+  if ($PSBoundParameters.ContainsKey('location')) {
+    if ($($environment.Length) -ge $config.control.environment.minLength -and $($environment.Length) -le $config.control.environment.maxLength) {
+      $bValidLocation = $true
     }
   }
 
@@ -103,6 +137,9 @@ function ValidateInput {
   if ($PSBoundParameters.ContainsKey('environment')) {
     $result.add('environment', $bValidEnvironment)
   }
+  if ($PSBoundParameters.ContainsKey('location')) {
+    $result.add('location', $bValidLocation)
+  }
   if ($PSBoundParameters.ContainsKey('workloadType')) {
     $result.add('workloadType', $bValidWorkloadType)
   }
@@ -150,7 +187,7 @@ function GenerateResourceName {
   }
   #insert location into name
   if ($PSBoundParameters.ContainsKey('location')) {
-    $name = $name -replace '{location}', $environment
+    $name = $name -replace '{location}', $location
   }
   #insert appIdentifier into name
   $name = $name -replace '{appIdentifier}', $appIdentifier
@@ -187,10 +224,13 @@ function GenerateResourceName {
     $bValidName = $false
   }
   #length validation
-  if ($name.length -lt $resourcePattern.minLength -or $name.length -gt $resourcePattern.maxLength) {
-    Write-Warning "invalid length for tne name generated for $($resourcePattern.description) - $name. Valid length is between $($resourcePattern.minLength) and $($resourcePattern.maxLength) and the actual length is $($name.length). The name will be ignored."
-    $bValidName = $false
+  if ($bValidName) {
+    if ($name.length -lt $resourcePattern.minLength -or $name.length -gt $resourcePattern.maxLength) {
+      Write-Warning "invalid length for tne name generated for $($resourcePattern.description) - $name. Valid length is between $($resourcePattern.minLength) and $($resourcePattern.maxLength) and the actual length is $($name.length). The name will be ignored."
+      $bValidName = $false
+    }
   }
+
   if ($bValidName) {
     $name
   } else {
@@ -204,6 +244,11 @@ function GetCloudResourceName {
   [OutputType([string])]
   Param
   (
+    [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $false, HelpMessage = "OPTIONAL: The custom configuration file to use. If not specified, the default configuration file 'CloudNaming.json' from the module directory will be used.")]
+    [Parameter(ParameterSetName = 'AllSupportedTypes', Mandatory = $false, HelpMessage = "OPTIONAL: The custom configuration file to use. If not specified, the default configuration file 'CloudNaming.json' from the module directory will be used.")]
+    [ValidateScript({ $(test-Path -Path $_ -PathType Leaf) -and $($(Get-ItemProperty -Path $_).Extension -ieq '.json') })]
+    [String]$configFilePath,
+
     [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $true, HelpMessage = "Cloud Provider")]
     [Parameter(ParameterSetName = 'AllSupportedTypes', Mandatory = $true, HelpMessage = "Cloud Provider")]
     [String[]]$cloud,
@@ -211,9 +256,10 @@ function GetCloudResourceName {
     [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $true, HelpMessage = "OPTIONAL: Azure resource type. If not specified, all supported types will be returned.")]
     [String[]]$type,
 
-    [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $false, HelpMessage = "OPTIONAL: Company name. If not specified, default value 'contoso' will be used.")]
-    [Parameter(ParameterSetName = 'AllSupportedTypes', Mandatory = $false, HelpMessage = "OPTIONAL: Company name. If not specified, default value 'contoso' will be used.")]
-    [ValidateNotNullOrEmpty()][String]$company = 'contoso',
+    [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $false, HelpMessage = "OPTIONAL: Company or Business Unit name. If not specified, the first value defined in the allowedValue section in the configuration file is the default value.")]
+    [Parameter(ParameterSetName = 'AllSupportedTypes', Mandatory = $false, HelpMessage = "OPTIONAL: Company or Business Unit name. If not specified, the first value defined in the allowedValue section in the configuration file is the default value.")]
+    [Alias('businessUnit')]
+    [ValidateNotNullOrEmpty()][String]$company,
 
     [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $false, HelpMessage = "OPTIONAL: Specify the environment")]
     [Parameter(ParameterSetName = 'AllSupportedTypes', Mandatory = $false, HelpMessage = "OPTIONAL: Specify the environment")]
@@ -249,14 +295,32 @@ function GetCloudResourceName {
   )
 
   #Read configuration file
-  Write-verbose "Read Azure Naming configuration file"
+  if ($PSBoundParameters.ContainsKey('configFilePath')) {
+    Write-Verbose "Custom configuration file specified: '$configFilePath'"
+  } else {
+    $configFilePath = Join-Path $PSScriptRoot 'CloudNaming.json' -Resolve
+    Write-Verbose "No custom configuration file specified. Using default configuration file from the CloudNaming module directory: '$configFilePath'"
+  }
+  Write-verbose "Read Azure Naming configuration file '$configFilePath'"
+
   try {
-    $config = ReadConfigFile
+    $config = ReadConfigFile -configFilePath $configFilePath
   } catch {
-    throw "Unable to read configuration file"
+    #throw "Unable to read configuration file"
+    throw $_
     exit -1
   }
 
+  #Get company value
+  if (!($PSBoundParameters.ContainsKey('company'))) {
+    $company = $config.allowedValues.company[0].value
+    if (!$company) {
+      Throw "No company value defined in the configuration file. Please define at least one company value in the configuration file."
+      Exit -1
+    } else {
+      Write-verbose "The 'Company' parameter is not specified. Using the first Allowed Value '$company' from the configuration file instead."
+    }
+  }
   #input validation
   Write-verbose "Input validation"
   $validateParams = @{
@@ -301,11 +365,13 @@ function GetCloudResourceName {
     throw "One or more input parameters are invalid."
     exit -1
   }
+  #Get all allowed values for the specified cloud provider
+  $availableResourcesForCloud = $config.allowedValues.resourceType | Where-Object { $_.cloud -ieq $cloud }
 
   #determine resource types in scope
   Write-verbose "Determine resource types in scope"
   if (!$PSBoundParameters.ContainsKey('type')) {
-    $type = $config.allowedValues.resourceType.value
+    $type = $availableResourcesForCloud.value
   }
   Write-verbose "type: $($type)"
   #determine leading zeros for the instance number
@@ -316,8 +382,8 @@ function GetCloudResourceName {
   Write-verbose "Generate resource names"
   $arrNames = @()
   foreach ($item in $type) {
-    Write-verbose "Generate resource names for type '$item'. Instance Count: $instanceCount"
-    $resourcePattern = $config.allowedValues.resourceType | Where-Object { $_.value -ieq $item }
+    Write-verbose "Generate resource names for type '$item' in cloud $cloud. Instance Count: $instanceCount"
+    $resourcePattern = $availableResourcesForCloud | Where-Object { $_.value -ieq $item }
     $objNames = @{
       'type'        = $item
       'description' = $resourcePattern.description
@@ -336,6 +402,9 @@ function GetCloudResourceName {
       }
       if ($PSBoundParameters.ContainsKey('environment')) {
         $generateNameParam.Add('environment', $environment)
+      }
+      if ($PSBoundParameters.ContainsKey('location')) {
+        $generateNameParam.Add('location', $location)
       }
       if ($PSBoundParameters.ContainsKey('workloadType')) {
         $generateNameParam.Add('workloadType', $workloadType)
@@ -364,7 +433,7 @@ function GetCloudResourceName {
 
   #deserialize the result
   Write-Verbose "Deserialize the result"
-  $output = $arrNames | ConvertTo-Json -Compress -Depth 3
+  $output = $arrNames | sort-object -Property 'type' | ConvertTo-Json -Compress -Depth 3
   $output
 }
 
@@ -373,17 +442,33 @@ function GetCloudNamingSupportedTypes {
   [CmdletBinding()]
   [OutputType([string])]
   param(
+    [Parameter(Mandatory = $false, HelpMessage = "OPTIONAL: The custom configuration file to use. If not specified, the default configuration file 'CloudNaming.json' from the module directory will be used.")]
+    [ValidateScript({ $(test-Path -Path $_ -PathType Leaf) -and $($(Get-ItemProperty -Path $_).Extension -ieq '.json') })]
+    [String]$configFilePath,
+
     [Parameter(Mandatory = $false, HelpMessage = "OPTIONAL: Resource type search string. RegEx is supported. i.e. '^virtual machine$'")]
-    [String]$searchString
+    [String]$searchString,
+
+    [Parameter(Mandatory = $false, HelpMessage = "OPTIONAL: Cloud Provider to search for. i.e. 'Azure'")]
+    [String]$cloud
   )
   #Read configuration file
-  Write-verbose "Read Azure Naming configuration file"
+  if ($PSBoundParameters.ContainsKey('configFilePath')) {
+    Write-Verbose "Custom configuration file specified: '$configFilePath'"
+  } else {
+    $configFilePath = Join-Path $PSScriptRoot 'CloudNaming.json' -Resolve
+    Write-Verbose "No custom configuration file specified. Using default configuration file from the CloudNaming module directory: '$configFilePath'"
+  }
+  Write-verbose "Read Azure Naming configuration file '$configFilePath'"
+
   try {
-    $config = ReadConfigFile
+    $config = ReadConfigFile -configFilePath $configFilePath
   } catch {
-    throw "Unable to read configuration file"
+    #throw "Unable to read configuration file"
+    throw $_
     exit -1
   }
+
   #get supported types
   if ($PSBoundParameters.ContainsKey('searchString')) {
     $SupportedTypes = $config.allowedValues.resourceType | Where-Object { $_.description -imatch $searchString }

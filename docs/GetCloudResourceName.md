@@ -9,39 +9,40 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Generate Azure resource names based on pre-defined naming standard.
+Generate cloud resource names based on pre-defined naming standard.
 
 ## SYNTAX
 
 ### ByTypeNames
 
 ```PowerShell
-GetCloudResourceName -type <String[]> [-company <String>] -environment <String> -location <String>
+GetCloudResourceName -type <String[]> [-cloud <String> -company <String>] -environment <String> -location <String>
  -appIdentifier <String> [-startInstanceNumber <Int32>] [-instanceCount <Int32>] [<CommonParameters>]
 ```
 
 ### AllSupportedTypes
 
 ```
-GetCloudResourceName [-company <String>] -environment <String> -location <String> -appIdentifier <String>
+GetCloudResourceName [-cloud <String> -company <String>] -environment <String> -location <String> -appIdentifier <String>
  [-startInstanceNumber <Int32>] [-instanceCount <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Generate Azure resource names based on pre-defined naming standard. Output is a deserialized Json payload. You can use ConvertFrom-Json cmdlet to convert the output into an object or an array of objects
+Generate cloud resource names based on pre-defined naming standard. Output is a deserialized Json payload. You can use ConvertFrom-Json cmdlet to convert the output into an object or an array of objects
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS C:\> GetCloudResourceName -company 'contoso' -environment 'p01' -appIdentifier 'test' -startInstanceNumber 1 -instanceCount 2
+PS C:\> GetCloudResourceName -cloud 'azure' -company 'abc' -environment 'p01' -location 'aue' -appIdentifier 'test' -startInstanceNumber 1 -instanceCount 2
 ```
 
 Generate 2 names for each supported resource types with starting sequence number of 1 and the following additional parameters:
 
--Company: contoso
+-Cloud: Azure
+-Company: abc
 
 -environment: p01
 
@@ -50,12 +51,12 @@ Generate 2 names for each supported resource types with starting sequence number
 ### Example 2
 
 ```powershell
-PS C:\> GetCloudResourceName -type 'st' -company 'contoso' -environment 'p01' -appIdentifier 'test'
+PS C:\> GetCloudResourceName -cloud 'azure' -type 'sa' -company 'abc' -environment 'p01' -appIdentifier 'test'
 ```
 
-Generate 1 name for storage account with default starting sequence number of 1 and the following additional parameters:
+Generate 1 name for Azure storage account with default starting sequence number of 1 and the following additional parameters:
 
--Company: contoso
+-Company: abc
 
 -environment: p01
 
@@ -66,12 +67,12 @@ Generate 1 name for storage account with default starting sequence number of 1 a
 ### Example 3
 
 ```powershell
-PS C:\> GetCloudResourceName -type 'st', 'kv' -company 'contoso' -environment 'p01' -location aue -appIdentifier 'test' -startInstanceNumber 2 -instanceCount 3 | ConvertFrom-Json
+PS C:\> GetCloudResourceName -cloud 'azure' -type 'sa', 'kv' -company 'abc' -environment 'p01' -location aue -appIdentifier 'test' -startInstanceNumber 2 -instanceCount 3 | ConvertFrom-Json
 ```
 
-Generate 3 names for Storage Account and Key Vault with starting sequence number of 2 and the following additional parameters, and convert output to an array of objects:
+Generate 3 names for Storage Account and Key Vault for Azure with starting sequence number of 2 and the following additional parameters, and convert output to an array of objects:
 
--Company: contoso
+-Company: abc
 
 -environment: p01
 
@@ -82,12 +83,12 @@ Generate 3 names for Storage Account and Key Vault with starting sequence number
 ### Example 4
 
 ```powershell
-PS C:\> GetCloudResourceName -type 'sub' -company 'contoso' -workloadType 'pl' -environment 'p01' -appIdentifier 'corp' | ConvertFrom-Json
+PS C:\> GetCloudResourceName -cloud 'azure' -type 'sub' -company 'abc' -workloadType 'pl' -environment 'p01' -appIdentifier 'corp' | ConvertFrom-Json
 ```
 
-Generate 1 name for an Azure subscription (contoso-lz-corp-p01) with the following parameters, and convert output to an array of objects:
+Generate 1 name for an Azure subscription with the following parameters, and convert output to an array of objects:
 
--Company: contoso
+-Company: abc
 
 -workloadType lz
 
@@ -98,16 +99,48 @@ Generate 1 name for an Azure subscription (contoso-lz-corp-p01) with the followi
 ### Example 5
 
 ```powershell
-PS C:\> GetCloudResourceName -type 'vm' -workloadType 'db' -environment 'p01' -appIdentifier 'bizapp' | ConvertFrom-Json
+PS C:\> GetCloudResourceName -cloud 'aws' -type 'ec2' -workloadType 'db' -location 'aue' -environment 'p01' -appIdentifier 'bizapp' | ConvertFrom-Json
 ```
 
-Generate 1 name for a Virtual Machine (dbp01bizapp-01) with the following parameters, and convert output to an array of objects:
+Generate 1 name for an AWS EC2 instance with the following parameters, and convert output to an array of objects:
 
--workloadType db
+-workloadType: db
+
+-location: aue
 
 -environment: p01
 
 -appIdentifier: bizapp
+
+### Example 6
+
+```powershell
+PS C:\> GetCloudResourceName -cloud 'gcp' -type 'proj' -environment 'p01' -appIdentifier 'bizapp' | ConvertFrom-Json
+```
+
+Generate 1 name for a GCP project, and convert output to an array of objects:
+
+-environment: p01
+
+-appIdentifier: bizapp
+
+### Example 7
+
+```powershell
+PS C:\> GetCloudResourceName -cloud 'azure' -configFilePath 'C:\Temp\config.json' -type 'sub' -company 'IT' -workloadType 'pl' -environment 'p01' -appIdentifier 'corp' | ConvertFrom-Json
+```
+
+Generate 1 name for an Azure subscription using a custom configuration file with the following parameters, and convert output to an array of objects:
+
+-ConfigFilePath: C:\temp\config.json
+
+-Company / BusinessUnit: IT
+
+-workloadType pl
+
+-environment: p01
+
+-appIdentifier: corp
 
 ## PARAMETERS
 
@@ -175,10 +208,27 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -configFilePath
+
+OPTIONAL: The custom configuration file to use.
+If not specified, the default configuration file 'CloudNaming.json' from the module directory will be used.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -company
 
-OPTIONAL: Company name.
-If not specified, default value 'contoso' will be used.
+OPTIONAL: Company or Business Unit name.
+If not specified, the first value defined in the allowedValue section in the configuration file is the default value.
 
 ```yaml
 Type: String
@@ -221,6 +271,22 @@ Aliases:
 Required: False
 Position: Named
 Default value: 1
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -location
+
+OPTIONAL: Specify the location or region of the cloud provider
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

@@ -19,6 +19,7 @@
       "default": {},
       "examples": [],
       "required": [
+        "cloud",
         "company",
         "resourceType",
         "environment",
@@ -30,10 +31,65 @@
         "instance"
       ],
       "properties": {
+        "cloud": {
+          "$id": "#/properties/control/properties/cloud",
+          "type": "object",
+          "title": "The cloud schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [],
+          "required": [
+            "description",
+            "type",
+            "minLength",
+            "maxLength"
+          ],
+          "properties": {
+            "description": {
+              "$id": "#/properties/control/properties/cloud/properties/description",
+              "type": "string",
+              "title": "The description schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": []
+            },
+            "type": {
+              "$id": "#/properties/control/properties/cloud/properties/type",
+              "type": "string",
+              "title": "The type schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "string"
+              ]
+            },
+            "minLength": {
+              "$id": "#/properties/control/properties/cloud/properties/minLength",
+              "type": "integer",
+              "title": "The minLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                3
+              ]
+            },
+            "maxLength": {
+              "$id": "#/properties/control/properties/cloud/properties/maxLength",
+              "type": "integer",
+              "title": "The maxLength schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": 0,
+              "examples": [
+                3
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
         "company": {
           "$id": "#/properties/control/properties/company",
           "type": "object",
-          "title": "The company schema",
+          "title": "The cloud schema",
           "description": "An explanation about the purpose of this instance.",
           "default": {},
           "examples": [],
@@ -101,7 +157,6 @@
           ],
           "required": [
             "description",
-            "cloud",
             "type",
             "minLength",
             "maxLength"
@@ -115,16 +170,6 @@
               "default": "",
               "examples": [
                 "Resource type."
-              ]
-            },
-            "cloud": {
-              "$id": "#/properties/control/properties/resourceType/properties/description",
-              "type": "string",
-              "title": "The cloud schema",
-              "description": "An explanation about the purpose of this instance.",
-              "default": "",
-              "examples": [
-                "Name of the cloud provider."
               ]
             },
             "type": {
@@ -643,10 +688,73 @@
       "default": {},
       "examples": [],
       "required": [
+        "cloud",
         "company",
         "resourceType"
       ],
       "properties": {
+        "cloud": {
+          "$id": "#/properties/allowedValues/properties/cloud",
+          "type": "array",
+          "title": "The cloud schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [],
+          "additionalItems": true,
+          "items": {
+            "$id": "#/properties/allowedValues/properties/cloud/items",
+            "anyOf": [
+              {
+                "$id": "#/properties/allowedValues/properties/cloud/items/anyOf/0",
+                "type": "object",
+                "title": "The first anyOf schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": {},
+                "examples": [
+                  {
+                    "name": "azure",
+                    "description": "Microsoft Azure"
+                  },
+                  {
+                    "name": "aws",
+                    "description": "Amazon Web Services"
+                  },
+                  {
+                    "name": "gcp",
+                    "description": "Google Cloud Platform"
+                  }
+                ],
+                "required": [
+                  "name",
+                  "description"
+                ],
+                "properties": {
+                  "name": {
+                    "$id": "#/properties/allowedValues/properties/cloud/items/anyOf/0/properties/value",
+                    "type": "string",
+                    "title": "The name schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                      "azure"
+                    ]
+                  },
+                  "description": {
+                    "$id": "#/properties/allowedValues/properties/cloud/items/anyOf/0/properties/description",
+                    "type": "string",
+                    "title": "The description schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                      "Microsoft Azure"
+                    ]
+                  }
+                },
+                "additionalProperties": true
+              }
+            ]
+          }
+        },
         "company": {
           "$id": "#/properties/allowedValues/properties/company",
           "type": "array",
@@ -667,7 +775,7 @@
                 "examples": [
                   {
                     "value": "contoso",
-                    "description": "Contoso"
+                    "description": "Contoso Ltd."
                   }
                 ],
                 "required": [
@@ -692,7 +800,7 @@
                     "description": "An explanation about the purpose of this instance.",
                     "default": "",
                     "examples": [
-                      "Contoso"
+                      "Contoso Ltd."
                     ]
                   }
                 },
@@ -722,6 +830,7 @@
                 "required": [
                   "value",
                   "description",
+                  "cloud",
                   "minLength",
                   "maxLength",
                   "case",
@@ -737,6 +846,16 @@
                     "default": "",
                     "examples": [
                       "aa"
+                    ]
+                  },
+                  "cloud": {
+                    "$id": "#/properties/allowedValues/properties/resourceType/items/anyOf/0/properties/cloud",
+                    "type": "string",
+                    "title": "The cloud schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                      "azure"
                     ]
                   },
                   "description": {

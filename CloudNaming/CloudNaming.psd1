@@ -33,7 +33,7 @@
   Description           = 'Naming Module for Cloud Resources'
 
   # Minimum version of the PowerShell engine required by this module
-  PowerShellVersion     = '5.0'
+  PowerShellVersion     = '6.0'
 
   # Name of the PowerShell host required by this module
   # PowerShellHostName = ''
@@ -87,7 +87,7 @@
   # ModuleList = @()
 
   # List of all files packaged with this module
-  FileList              = @('CloudNaming.psd1', 'CloudNaming.psm1', 'CloudNaming.json')
+  FileList              = @('CloudNaming.psd1', 'CloudNaming.psm1', 'CloudNaming.json', 'CloudNaming.schema.json')
 
   # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
   PrivateData           = @{

@@ -7,7 +7,7 @@
       "maxLength": 8
     },
     "company": {
-      "description": "company abbreviation if been used to host external company solution.",
+      "description": "Company / business unit abbreviation. Define allowed values in the allowedValues/company property. The first value is the default value.",
       "type": "string",
       "minLength": 2,
       "maxLength": 8
@@ -66,19 +66,23 @@
   "allowedValues": {
     "cloud": [
       {
-        "value": "azure",
+        "name": "azure",
         "description": "Microsoft Azure"
       },
       {
-        "value": "aws",
+        "name": "aws",
         "description": "Amazon Web Services"
       },
       {
-        "value": "gcp",
+        "name": "gcp",
         "description": "Google Cloud Platform"
       }
     ],
     "company": [
+      {
+        "value": "abc",
+        "description": "ABC Company"
+      },
       {
         "value": "cts",
         "description": "Contoso Ltd."
@@ -86,6 +90,10 @@
       {
         "value": "fbkm",
         "description": "Fabrikam, Inc."
+      },
+      {
+        "value": "wgrv",
+        "description": "Woodgrove Bank"
       }
     ],
     "resourceType": [
@@ -97,7 +105,7 @@
         "maxLength": 50,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "acr",
@@ -107,7 +115,7 @@
         "maxLength": 50,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "adf",
@@ -117,7 +125,7 @@
         "maxLength": 63,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "afw",
@@ -127,7 +135,7 @@
         "maxLength": 56,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "afwp",
@@ -137,7 +145,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "agw",
@@ -147,7 +155,7 @@
         "maxLength": 24,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "aks",
@@ -157,7 +165,7 @@
         "maxLength": 50,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "anf",
@@ -167,7 +175,7 @@
         "maxLength": 128,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "apim",
@@ -177,7 +185,7 @@
         "maxLength": 256,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "app",
@@ -187,7 +195,7 @@
         "maxLength": 60,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "appi",
@@ -197,7 +205,7 @@
         "maxLength": 260,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "ampls",
@@ -207,7 +215,7 @@
         "maxLength": 255,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "ase",
@@ -217,7 +225,7 @@
         "maxLength": 60,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "asg",
@@ -227,7 +235,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "bas",
@@ -237,7 +245,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "ddos",
@@ -247,7 +255,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "adx",
@@ -257,7 +265,7 @@
         "maxLength": 22,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}{resourceType}{environment}{appIdentifier}{instance}"
+        "pattern": "{resourceType}{company}{environment}{location}{appIdentifier}{instance}"
       },
       {
         "value": "disk",
@@ -267,7 +275,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{associatedResourceName}-{instance}"
+        "pattern": "{resourceType}-{company}-{associatedResourceName}-{instance}"
       },
       {
         "value": "egd",
@@ -277,7 +285,7 @@
         "maxLength": 50,
         "leadingZeros": true,
         "case": "lower",
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{appIdentifier}-{instance}"
       },
       {
         "value": "egs",
@@ -287,7 +295,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{appIdentifier}-{instance}"
       },
       {
         "value": "egt",
@@ -297,7 +305,7 @@
         "maxLength": 50,
         "leadingZeros": true,
         "case": "lower",
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{appIdentifier}-{instance}"
       },
       {
         "value": "erg",
@@ -307,7 +315,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "erc",
@@ -317,7 +325,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "evh",
@@ -327,7 +335,7 @@
         "maxLength": 50,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "evhns",
@@ -337,7 +345,7 @@
         "maxLength": 50,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "afd",
@@ -347,7 +355,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "func",
@@ -357,7 +365,7 @@
         "maxLength": 60,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "ipgr",
@@ -367,7 +375,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "kv",
@@ -377,7 +385,7 @@
         "maxLength": 24,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "lb",
@@ -387,7 +395,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "law",
@@ -397,7 +405,7 @@
         "maxLength": 63,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "mi",
@@ -407,7 +415,7 @@
         "maxLength": 128,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "msql",
@@ -417,7 +425,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "nic",
@@ -427,7 +435,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{associatedResourceName}-{instance}"
+        "pattern": "{resourceType}-{company}-{associatedResourceName}-{instance}"
       },
       {
         "value": "nsg",
@@ -437,7 +445,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "ntf",
@@ -447,7 +455,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "ntfns",
@@ -457,7 +465,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "pe",
@@ -467,7 +475,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{appIdentifier}-{associatedResourceType}-{instance}"
+        "pattern": "{resourceType}-{company}-{appIdentifier}-{associatedResourceType}-{instance}"
       },
       {
         "value": "pip",
@@ -477,7 +485,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{associatedResourceType}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{associatedResourceType}-{instance}"
       },
       {
         "value": "pl",
@@ -487,7 +495,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{appIdentifier}-{instance}"
       },
       {
         "value": "asp",
@@ -497,7 +505,7 @@
         "maxLength": 60,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "psql",
@@ -507,7 +515,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "pvw",
@@ -517,7 +525,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "pvwi",
@@ -527,7 +535,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "redis",
@@ -537,7 +545,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "rg",
@@ -547,7 +555,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "rn",
@@ -557,7 +565,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "rsv",
@@ -567,7 +575,7 @@
         "maxLength": 50,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "rt",
@@ -577,7 +585,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "sb",
@@ -587,7 +595,7 @@
         "maxLength": 63,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "sn",
@@ -597,7 +605,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{appIdentifier}-{instance}"
       },
       {
         "value": "sqldb",
@@ -607,7 +615,7 @@
         "maxLength": 63,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "sqlmi",
@@ -617,7 +625,7 @@
         "maxLength": 63,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "sqls",
@@ -627,7 +635,7 @@
         "maxLength": 63,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "sa",
@@ -637,7 +645,7 @@
         "maxLength": 24,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}{resourceType}{environment}{appIdentifier}{instance}"
+        "pattern": "{resourceType}{company}{environment}{location}{appIdentifier}{instance}"
       },
       {
         "value": "sub",
@@ -657,7 +665,7 @@
         "maxLength": 63,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "vdag",
@@ -667,7 +675,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "vdpl",
@@ -677,7 +685,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "vdws",
@@ -687,7 +695,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "vhub",
@@ -697,7 +705,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "vm",
@@ -707,7 +715,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{workloadType}{environment}{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{workloadType}-{appIdentifier}-{instance}"
       },
       {
         "value": "vmss",
@@ -717,7 +725,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "vnet",
@@ -727,7 +735,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "vpngw",
@@ -737,7 +745,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "vwan",
@@ -747,7 +755,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "waf",
@@ -757,7 +765,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "ec2",
@@ -767,7 +775,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{workloadType}-{appIdentifier}-{instance}"
       },
       {
         "value": "vpc",
@@ -777,7 +785,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "sn",
@@ -787,7 +795,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "s3",
@@ -797,17 +805,17 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
-        "value": "pro",
+        "value": "proj",
         "description": "GCP Project",
         "cloud": "gcp",
         "minLength": 1,
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{appIdentifier}-{instance}"
       },
       {
         "value": "vm",
@@ -817,7 +825,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{workloadType}-{appIdentifier}-{instance}"
       },
       {
         "value": "vpc",
@@ -827,7 +835,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{appIdentifier}-{instance}"
       },
       {
         "value": "sn",
@@ -837,7 +845,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       },
       {
         "value": "sb",
@@ -847,7 +855,7 @@
         "maxLength": 64,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{company}-{resourceType}-{environment}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
       }
     ]
   }
