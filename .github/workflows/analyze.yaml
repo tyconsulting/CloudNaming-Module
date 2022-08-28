@@ -20,22 +20,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  oss:
-    name: Analyze with PSRule
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    - name: Run PSRule analysis
-      uses: microsoft/ps-rule@v2.3.2
-      with:
-        modules: PSRule.Rules.MSFT.OSS
-        prerelease: true
-
   devskim:
     name: Analyze with DevSkim
     runs-on: ubuntu-latest
@@ -51,35 +35,12 @@ jobs:
       - name: Run DevSkim scanner
         uses: microsoft/DevSkim-Action@v1
         with:
-          directory-to-scan: src/
+          directory-to-scan: CloudNaming/
 
       - name: Upload results to security tab
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: devskim-results.sarif
-
-  codeql:
-    name: Analyze with CodeQL
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-    steps:
-
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: 'csharp'
-
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
 
   superlinter:
     name: Lint Code Base
