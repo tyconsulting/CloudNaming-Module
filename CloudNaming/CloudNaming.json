@@ -605,7 +605,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{resourceType}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{workloadType}-{instance}"
       },
       {
         "value": "sqldb",
@@ -795,7 +795,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{workloadType}-{instance}"
       },
       {
         "value": "s3",
@@ -845,7 +845,7 @@
         "maxLength": 80,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}-{company}-{environment}-{location}-{workloadType}-{instance}"
       },
       {
         "value": "sb",

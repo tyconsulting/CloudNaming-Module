@@ -478,5 +478,9 @@ function GetCloudNamingSupportedTypes {
   } else {
     $SupportedTypes = $config.allowedValues.resourceType
   }
+
+  if ($PSBoundParameters.ContainsKey('cloud')) {
+    $SupportedTypes = $SupportedTypes | where-object { $_.cloud -imatch $cloud }
+  }
   $SupportedTypes | ConvertTo-Json -Compress -Depth 3
 }
