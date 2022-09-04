@@ -8,7 +8,7 @@ schema: 2.0.0
 # GetCloudResourceName
 
 ## SYNOPSIS
-Generate cloud resource names based on pre-defined naming standard.
+Generate cloud resource names based on predefined naming standard.
 
 ## SYNTAX
 
@@ -29,9 +29,7 @@ GetCloudResourceName [-configFilePath <String>] -cloud <String[]> -type <String[
 ```
 
 ## DESCRIPTION
-Generate cloud resource names based on pre-defined naming standard. Output is a deserialized Json payload. You can use ConvertFrom-Json cmdlet to convert the output into an object or an array of objects
-
-## EXAMPLES
+Generate cloud resource names based on predefined naming standard. Output is a deserialized Json payload. You can use ConvertFrom-Json cmdlet to convert the output into an object or an array of objects
 
 ## EXAMPLES
 

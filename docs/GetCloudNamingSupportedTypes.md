@@ -91,7 +91,7 @@ Accept wildcard characters: False
 
 ### -searchString
 OPTIONAL: Resource type search string.
-RegEx is supported.
+Regular Expression is supported.
 i.e.
 '^virtual machine$'
 
