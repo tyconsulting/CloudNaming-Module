@@ -1,11 +1,5 @@
 # PowerShell module for Cloud Naming Standard
 
-
-| Version | Date | Author | Note |
-| :-----: | :--: | :----- | :--- |
-| 0.2.1 | 29/08/2022 | Tao Yang | Initial release |
-
-
 ## Introduction
 
 The CloudNaming PowerShell module can be used to programmatically generate cloud resource names for your organization.
