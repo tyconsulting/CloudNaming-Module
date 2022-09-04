@@ -14,6 +14,31 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
+## [1.0.0] - 2022-09-04
+
+
+### Added
+
+
+### Changed
+
+* Bump the version number to 1.0.0 for initial release.
+
+### Fixed
+
+## [0.5.0] - 2022-09-04
+
+
+### Added
+
+* Added `newCloudNamingConfigFile` function to create new custom configuration files.
+
+### Changed
+
+
+### Fixed
+
+
 ## [0.4.0] - 2022-09-04
 
 
