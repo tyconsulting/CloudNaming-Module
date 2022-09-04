@@ -8,12 +8,12 @@ schema: 2.0.0
 # GetCloudResourceName
 
 ## SYNOPSIS
-Generate cloud resource names based on pre-defined naming standard.
+Generate cloud resource names based on predefined naming standard.
 
 ## SYNTAX
 
 ### AllSupportedTypes
-```
+```PowerShell
 GetCloudResourceName [-configFilePath <String>] -cloud <String[]> [-company <String>] [-environment <String>]
  [-location <String>] -appIdentifier <String> [-associatedResourceType <String>]
  [-associatedResourceName <String>] [-workloadType <String>] [-startInstanceNumber <Int32>]
@@ -21,7 +21,7 @@ GetCloudResourceName [-configFilePath <String>] -cloud <String[]> [-company <Str
 ```
 
 ### ByTypeNames
-```
+```PowerShell
 GetCloudResourceName [-configFilePath <String>] -cloud <String[]> -type <String[]> [-company <String>]
  [-environment <String>] [-location <String>] -appIdentifier <String> [-associatedResourceType <String>]
  [-associatedResourceName <String>] [-workloadType <String>] [-startInstanceNumber <Int32>]
@@ -29,9 +29,7 @@ GetCloudResourceName [-configFilePath <String>] -cloud <String[]> -type <String[
 ```
 
 ## DESCRIPTION
-Generate cloud resource names based on pre-defined naming standard. Output is a deserialized Json payload. You can use ConvertFrom-Json cmdlet to convert the output into an object or an array of objects
-
-## EXAMPLES
+Generate cloud resource names based on predefined naming standard. Output is a deserialized Json payload. You can use ConvertFrom-Json cmdlet to convert the output into an object or an array of objects
 
 ## EXAMPLES
 
@@ -154,7 +152,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
