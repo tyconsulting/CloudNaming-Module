@@ -46,7 +46,7 @@ function ValidateInput {
     [Parameter(Mandatory = $true)][String]$company,
     [Parameter(Mandatory = $false)][string]$environment,
     [Parameter(Mandatory = $false)][string]$location,
-    [Parameter(Mandatory = $true)][string]$appIdentifier,
+    [Parameter(Mandatory = $false)][string]$appIdentifier,
     [Parameter(Mandatory = $false)][string]$workloadType,
     [Parameter(Mandatory = $false)][string]$associatedResourceType,
     [Parameter(Mandatory = $false)][string]$associatedResourceName,
@@ -93,8 +93,10 @@ function ValidateInput {
 
   #Validate appIdentifier
   $bValidAppIdentifier = $false
-  if ($($appIdentifier.Length) -ge $config.control.appIdentifier.minLength -and $($appIdentifier.Length) -le $config.control.appIdentifier.maxLength) {
-    $bValidAppIdentifier = $true
+  if ($PSBoundParameters.ContainsKey('appIdentifier')) {
+    if ($($appIdentifier.Length) -ge $config.control.appIdentifier.minLength -and $($appIdentifier.Length) -le $config.control.appIdentifier.maxLength) {
+      $bValidAppIdentifier = $true
+    }
   }
 
   #validate workloadType
@@ -133,10 +135,12 @@ function ValidateInput {
     'cloud'          = $bValidCloud
     'type'           = $bValidType
     'company'        = $bValidCompany
-    'appIdentifier'  = $bValidAppIdentifier
     'instanceNumber' = $bValidInstanceNumber
   }
 
+  if ($PSBoundParameters.ContainsKey('appIdentifier')) {
+    $result.add('appIdentifier', $bValidAppIdentifier)
+  }
   if ($PSBoundParameters.ContainsKey('environment')) {
     $result.add('environment', $bValidEnvironment)
   }
@@ -164,7 +168,7 @@ function GenerateResourceName {
     [Parameter(Mandatory = $true)][String]$company,
     [Parameter(Mandatory = $false)][string]$environment,
     [Parameter(Mandatory = $false)][string]$location,
-    [Parameter(Mandatory = $true)][string]$appIdentifier,
+    [Parameter(Mandatory = $false)][string]$appIdentifier,
     [Parameter(Mandatory = $false)][string]$workloadType,
     [Parameter(Mandatory = $false)][string]$associatedResourceType,
     [Parameter(Mandatory = $false)][string]$associatedResourceName,
@@ -193,7 +197,10 @@ function GenerateResourceName {
     $name = $name -replace '{location}', $location
   }
   #insert appIdentifier into name
-  $name = $name -replace '{appIdentifier}', $appIdentifier
+  if ($PSBoundParameters.ContainsKey('appIdentifier')) {
+    $name = $name -replace '{appIdentifier}', $appIdentifier
+  }
+
   #insert workloadType into name
   if ($PSBoundParameters.ContainsKey('workloadType')) {
     $name = $name -replace '{workloadType}', $workloadType
@@ -272,8 +279,8 @@ function GetCloudResourceName {
     [Parameter(ParameterSetName = 'AllSupportedTypes', Mandatory = $false, HelpMessage = "OPTIONAL: Specify the location or region of the cloud provider")]
     [string]$location,
 
-    [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $true, HelpMessage = "Specify the application identifier")]
-    [Parameter(ParameterSetName = 'AllSupportedTypes', Mandatory = $true, HelpMessage = "Specify the application identifier")]
+    [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $false, HelpMessage = "Specify the application identifier")]
+    [Parameter(ParameterSetName = 'AllSupportedTypes', Mandatory = $false, HelpMessage = "Specify the application identifier")]
     [string]$appIdentifier,
 
     [Parameter(ParameterSetName = 'ByTypeNames', Mandatory = $false, HelpMessage = "OPTIONAL: Associated resource type. Used for resource types such as private endpoints and public IPs.")]
@@ -331,10 +338,12 @@ function GetCloudResourceName {
     'cloud'               = $cloud
     'company'             = $company
     'startInstanceNumber' = $startInstanceNumber
-    'appIdentifier'       = $appIdentifier
     'instanceCount'       = $instanceCount
   }
 
+  if ($PSBoundParameters.ContainsKey('appIdentifier')) {
+    $validateParams.Add('appIdentifier', $appIdentifier)
+  }
   if ($PSBoundParameters.ContainsKey('type')) {
     $validateParams.Add('type', $type)
   }
@@ -398,10 +407,12 @@ function GetCloudResourceName {
       $generateNameParam = @{
         'type'            = $item
         'company'         = $company
-        'appIdentifier'   = $appIdentifier
         'instanceNumber'  = $instanceNumber
         'resourcePattern' = $resourcePattern
         'leadingZeros'    = $leadingZeros
+      }
+      if ($PSBoundParameters.ContainsKey('appIdentifier')) {
+        $generateNameParam.Add('appIdentifier', $appIdentifier)
       }
       if ($PSBoundParameters.ContainsKey('environment')) {
         $generateNameParam.Add('environment', $environment)

@@ -163,7 +163,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>GetCloudResourceName</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>appIdentifier</maml:name>
           <maml:description>
             <maml:para>Specify the application identifier</maml:para>
@@ -310,7 +310,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>appIdentifier</maml:name>
         <maml:description>
           <maml:para>Specify the application identifier</maml:para>
