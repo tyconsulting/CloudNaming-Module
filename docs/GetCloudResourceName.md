@@ -13,7 +13,7 @@ Generate cloud resource names based on pre-defined naming standard.
 ## SYNTAX
 
 ### AllSupportedTypes
-```
+```PowerShell
 GetCloudResourceName [-configFilePath <String>] -cloud <String[]> [-company <String>] [-environment <String>]
  [-location <String>] -appIdentifier <String> [-associatedResourceType <String>]
  [-associatedResourceName <String>] [-workloadType <String>] [-startInstanceNumber <Int32>]
@@ -21,7 +21,7 @@ GetCloudResourceName [-configFilePath <String>] -cloud <String[]> [-company <Str
 ```
 
 ### ByTypeNames
-```
+```PowerShell
 GetCloudResourceName [-configFilePath <String>] -cloud <String[]> -type <String[]> [-company <String>]
  [-environment <String>] [-location <String>] -appIdentifier <String> [-associatedResourceType <String>]
  [-associatedResourceName <String>] [-workloadType <String>] [-startInstanceNumber <Int32>]

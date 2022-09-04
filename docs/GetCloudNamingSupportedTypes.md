@@ -12,7 +12,7 @@ Get supported Azure resource types from the CloudNaming module
 
 ## SYNTAX
 
-```
+```PowerShell
 GetCloudNamingSupportedTypes [[-configFilePath] <String>] [[-searchString] <String>] [[-cloud] <String>]
  [<CommonParameters>]
 ```
