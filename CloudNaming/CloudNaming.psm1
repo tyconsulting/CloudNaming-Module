@@ -495,3 +495,34 @@ function GetCloudNamingSupportedTypes {
   }
   $SupportedTypes | ConvertTo-Json -Compress -Depth 3
 }
+
+# .EXTERNALHELP en-US/CloudNaming-Help.xml
+function NewCloudNamingConfigFile {
+  [CmdletBinding()]
+  [OutputType([string])]
+  param(
+    [Parameter(Mandatory = $true, HelpMessage = "The path to the custom configuration file to create.")]
+    [ValidateScript({ $( test-path -literalPath $_ -PathType leaf -IsValid) -and $( $_.split('.')[-1] -ieq 'json') })]
+    [String]$configFilePath,
+
+    [Parameter(Mandatory = $false, HelpMessage = "Overwrite existing file if exists.")]
+    [switch]$force
+  )
+
+  $builtInConfigFile = join-path $PSScriptRoot 'CloudNaming.json' -Resolve
+  Write-Verbose "Creating new CloudNaming configuration file at '$configFilePath' based on the built-in configuration file '$builtInConfigFile'"
+  #check if file exists already
+  $bExistingFile = test-path -literalPath $configFilePath -PathType leaf
+  if ($bExistingFile) {
+    if ($force) {
+      Write-Verbose "File '$configFilePath' already exists. Overwriting."
+      $result = (copy-item -path $builtInConfigFile -destination $configFilePath -force -PassThru).fullName
+    } else {
+      Write-Warning "File '$configFilePath' already exists. Use -force to overwrite."
+    }
+  } else {
+    Write-Verbose "File '$configFilePath' does not exist. Creating."
+    $result = (copy-item -path $builtInConfigFile -destination $configFilePath -force).fullName
+  }
+  $result
+}

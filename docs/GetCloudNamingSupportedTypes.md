@@ -1,7 +1,7 @@
 ---
 external help file: CloudNaming-help.xml
 Module Name: CloudNaming
-online version:
+online version: https://github.com/tyconsulting/CloudNaming-Module/wiki/GetCloudNamingSupportedTypes-Command
 schema: 2.0.0
 ---
 

@@ -32,7 +32,6 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-
       - name: Publishing
         run: |
           Publish-Module -Path ./CloudNaming -NuGetApiKey ${{ secrets.PSGALLERY }}
