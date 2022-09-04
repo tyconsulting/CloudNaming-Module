@@ -1,11 +1,5 @@
 # PowerShell module for Cloud Naming Standard
 
-
-| Version | Date | Author | Note |
-| :-----: | :--: | :----- | :--- |
-| 0.2.1 | 29/08/2022 | Tao Yang | Initial release |
-
-
 ## Introduction
 
 The CloudNaming PowerShell module can be used to programmatically generate cloud resource names for your organization.
@@ -16,4 +10,4 @@ It is highly customizable, and supports any cloud providers of your choice. The 
 
 ## Status
 
-[![GitHub Super-Linter](https://github.com/tyconsulting/CloudNaming-Module/workflows/main.yaml/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![GitHub Super-Linter](https://github.com/tyconsulting/CloudNaming-Module/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
