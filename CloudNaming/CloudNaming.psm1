@@ -86,7 +86,7 @@ function ValidateInput {
   #Validate location
   $bValidLocation = $false
   if ($PSBoundParameters.ContainsKey('location')) {
-    if ($($environment.Length) -ge $config.control.environment.minLength -and $($environment.Length) -le $config.control.environment.maxLength) {
+    if ($($location.Length) -ge $config.control.location.minLength -and $($location.Length) -le $config.control.location.maxLength) {
       $bValidLocation = $true
     }
   }
