@@ -14,7 +14,7 @@
   RootModule            = 'CloudNaming.psm1'
 
   # Version number of this module.
-  ModuleVersion         = '0.5.0'
+  ModuleVersion         = '1.0.0'
 
   # Supported PSEditions
   # CompatiblePSEditions = @()
@@ -32,7 +32,7 @@
   Copyright             = '2022 (c) TY Consulting Pty. Ltd. All rights reserved.'
 
   # Description of the functionality provided by this module
-  Description           = 'Naming Module for Cloud Resources'
+  Description           = 'Naming Module for Cloud Resources. Generate resource names for multiple cloud providers.'
 
   # Minimum version of the PowerShell engine required by this module
   PowerShellVersion     = '6.0'
