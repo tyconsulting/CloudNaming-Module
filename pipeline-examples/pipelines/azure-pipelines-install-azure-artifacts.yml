@@ -1,0 +1,81 @@
+name: $(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - CloudNaming
+
+variables:
+  FeedName: PSModules
+  runGithubSuperLinter: false
+stages:
+  - stage: test_and_build
+    displayName: "Test and Build"
+    jobs:
+      - job: lint_test
+        displayName: Lint Test
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - script: |
+              docker pull github/super-linter:latest
+              docker run -e RUN_LOCAL=true -e USE_FIND_ALGORITHM=true -e VALIDATE_JSCPD=false -v $(System.DefaultWorkingDirectory):/tmp/lint github/super-linter
+            displayName: 'GitHub Super-Linter Code Scan'
+            condition: and(succeeded(), eq('$(runGithubSuperLinter)', true))
+      - job: build_and_publish
+        displayName: Build and Publish
+        pool:
+          vmImage: 'windows-latest'
+        dependsOn: lint_test
+        steps:
+          - task: PowerShell@2
+            displayName: "PowerShell Script - Create Nuspec file"
+            inputs:
+              targetType: filePath
+              pwsh: true
+              filePath: '$(Build.SourcesDirectory)\scripts\psd1-to-nuspec.ps1'
+              arguments: '-ManifestPath $(Build.SourcesDirectory)\CloudNaming\CloudNaming.psd1'
+          - task: NuGetCommand@2
+            displayName: "Create NuGet package"
+            inputs:
+              command: pack
+              packagesToPack: CloudNaming\CloudNaming.nuspec
+              packDestination: CloudNaming\
+          - task: CopyFiles@2
+            displayName: "Copy Files to: $(Build.ArtifactStagingDirectory)"
+            inputs:
+              SourceFolder: "$(Build.SourcesDirectory)/CloudNaming"
+              TargetFolder: "$(Build.ArtifactStagingDirectory)/CloudNaming"
+              CleanTargetFolder: true
+              OverWrite: true
+          - task: PublishBuildArtifacts@1
+            displayName: "Publish Artifact: drop"
+            inputs:
+              artifactName: "drop"
+              PathtoPublish: "$(Build.ArtifactStagingDirectory)/CloudNaming"
+  - stage: module_deploy_ado_server
+    displayName: "Deploy PS Module"
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    jobs:
+      - deployment: ado_server_deploy
+        displayName: "Publish to Org Scoped Azure Artifact Feed"
+        pool:
+          vmImage: 'windows-latest'
+          timeoutInMinutes: 30
+        environment: 'Production'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: NuGetAuthenticate@0
+                  displayName: "NuGet Authenticate"
+                - task: NuGetCommand@2
+                  displayName: "NuGet push"
+                  inputs:
+                    command: push
+                    publishVstsFeed: "$(FeedName)"
+                    packagesToPush: "$(Agent.BuildDirectory)/drop/*.nupkg"
+                    nuGetFeedType: 'internal'
+                    allowPackageConflicts: true
