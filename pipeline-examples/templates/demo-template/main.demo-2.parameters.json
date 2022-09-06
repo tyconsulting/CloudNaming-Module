@@ -1,0 +1,93 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "resourceGroupName": {
+      "value": ""
+    },
+    "vNetName": {
+      "value": ""
+    },
+    "vNetCIDRs": {
+      "value": [
+        "10.60.0.0/16"
+      ]
+    },
+    "subnetConfiguration": {
+      "value": [
+        {
+          "subnetName": "",
+          "networkSecurityGroupName": "",
+          "addressPrefix": "10.60.1.0/24",
+          "nsgSecurityRules": [
+            {
+              "name": "Allow-HTTPS-Inbound",
+              "properties": {
+                "protocol": "Tcp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "443",
+                "sourceAddressPrefix": "VirtualNetwork",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 200,
+                "direction": "Inbound"
+              }
+            }
+          ],
+          "privateEndpointNetworkPolicies": "Enabled",
+          "privateLinkServiceNetworkPolicies": "Enabled"
+        },
+        {
+          "subnetName": "",
+          "networkSecurityGroupName": "",
+          "addressPrefix": "10.60.2.0/24",
+          "nsgSecurityRules": [
+            {
+              "name": "Allow-RDP-Inbound",
+              "properties": {
+                "protocol": "Tcp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "3389",
+                "sourceAddressPrefix": "VirtualNetwork",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 200,
+                "direction": "Inbound"
+              }
+            },
+            {
+              "name": "Allow-SSH-Inbound",
+              "properties": {
+                "protocol": "Tcp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "22",
+                "sourceAddressPrefix": "VirtualNetwork",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 210,
+                "direction": "Inbound"
+              }
+            }
+          ],
+          "privateEndpointNetworkPolicies": "Disabled",
+          "privateLinkServiceNetworkPolicies": "Disabled"
+        }
+      ]
+    },
+    "storageAccountName": {
+      "value": ""
+    },
+    "keyVaultName": {
+      "value": ""
+    },
+    "keyVaultPrivateEndpointName": {
+      "value": ""
+    },
+    "storageAccountPrivateEndpointName": {
+      "value": ""
+    },
+    "peSubnetName": {
+      "value": ""
+    }
+  }
+}

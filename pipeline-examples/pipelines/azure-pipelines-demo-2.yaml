@@ -1,0 +1,147 @@
+name: $(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger: none
+
+variables:
+  - name: psRepoSourceLocation
+    value: ConnectivitySub
+  - name: templateFileDirectory
+    value: "templates/demo-template"
+  - name: templateFileName
+    value: 'main.bicep'
+  - name: parameterFileName
+    value: 'main.demo-2.parameters.json'
+  - name: updatedParameterFileArtifactName
+    value: "UpdatedParameterFile"
+  - name: outputFileArtifactSuffix
+    value: "Outputs"
+  - name: agentPoolName
+    value: "ubuntu-latest"
+  - name: location
+    value: "australiaeast"
+  - name: configFilePath
+    value: "config/customCloudNaming.json"
+  - name: parameterFileUpdateScriptPath
+    value: "scripts/update-demo-2-parameters.ps1"
+  - name: psRepositoryName
+    value: "PSModules"
+  - name: azureArtifactFeedUri
+    value: "https://pkgs.dev.azure.com/gitforked/_packaging/PSModules/nuget/v2"
+  - name: Naming_vnetType
+    value: 'vnet'
+  - name: Naming_kvType
+    value: 'kv'
+  - name: Naming_subnetType
+    value: 'sn'
+  - name: Naming_storageAccountType
+    value: 'sa'
+  - name: Naming_resourceGroupType
+    value: 'rg'
+  - name: Naming_privateEndpointType
+    value: 'pe'
+  - name: Naming_nsgType
+    value: 'nsg'
+  - name: Naming_company
+    value: 'tao' #defined in the custom config file
+  - name: Naming_appIdentifier
+    value: 'blog'
+stages:
+  - stage: PrepareVariables_dev
+    displayName: Prepare Variables for Dev
+    variables:
+      - name: Naming_environment
+        value: 'd01'
+      - name: Naming_location
+        value: 'aue'
+    jobs:
+      - job: UpdateParameterFile
+        displayName: Generate Resource Names
+        pool:
+          vmImage: "${{ variables['agentPoolName'] }}"
+        steps:
+          - task: PowerShell@2
+            displayName: "Install module from $(psRepositoryName)"
+            inputs:
+              targetType: "inline"
+              pwsh: true
+              script: |
+                install-module CloudNaming -scope CurrentUser -force
+
+          - task: PowerShell@2
+            name: UpdateValues
+            displayName: "Create Azure Resource Names"
+            env:
+              Naming_appIdentifier: $(Naming_appIdentifier)
+              Naming_company: $(Naming_company)
+              Naming_privateEndpointType: $(Naming_privateEndpointType)
+              Naming_resourceGroupType: $(Naming_resourceGroupType)
+              Naming_storageAccountType: $(Naming_storageAccountType)
+              Naming_subnetType: $(Naming_subnetType)
+              Naming_kvType: $(Naming_kvType)
+              Naming_vnetType: $(Naming_vnetType)
+              Naming_nsgType: $(Naming_nsgType)
+              Naming_environment: $(Naming_environment)
+              Naming_location: $(Naming_location)
+            inputs:
+              targetType: "filePath"
+              pwsh: true
+              filepath: $(parameterFileUpdateScriptPath)
+              arguments:
+                -parameterFilePath "$(templateFileDirectory)/$(parameterFileName)" `
+                -updatedParameterFileArtifactName "${{ variables['updatedParameterFileArtifactName'] }}" `
+                -ConfigFilePath '$(configFilePath)'
+          - task: CopyFiles@2
+            displayName: "Copy Updated Parameter File to Build Artifact Staging Directory"
+            inputs:
+              SourceFolder: "$(templateFileDirectory)/$(updatedParameterFileArtifactName)"
+              TargetFolder: "$(Build.ArtifactStagingDirectory)/$(updatedParameterFileArtifactName)"
+              CleanTargetFolder: true
+              OverWrite: true
+          - task: PublishBuildArtifacts@1
+            displayName: "Publish Artifact"
+            inputs:
+              artifactName: "$(updatedParameterFileArtifactName)"
+              PathtoPublish: "$(Build.ArtifactStagingDirectory)/$(updatedParameterFileArtifactName)"
+
+  - stage: deploy_dev
+    displayName: "Deploy to dev 1"
+    dependsOn:
+      - PrepareVariables_dev
+    jobs:
+    - deployment: dev_template_deploy
+      displayName: 'Template Deployment to Dev'
+      pool:
+        vmImage: "${{ variables['agentPoolName'] }}"
+        timeoutInMinutes: 120
+      environment: 'Development'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - checkout: self
+            - download: none
+            - task: DownloadBuildArtifacts@0
+              displayName: "Download Parameter File Artifact"
+              inputs:
+                artifactName: "$(updatedParameterFileArtifactName)"
+            - task: AzurePowerShell@5
+              displayName: 'Get workload subscription Id'
+              inputs:
+                azureSubscription: 'sub-workload-dev'
+                ScriptType: InlineScript
+                Inline: |
+                  $ctx = get-azcontext
+                  $subId = $ctx.subscription.id
+                  Write-Output ("##vso[task.setvariable variable=workloadSubId]$subId")
+                azurePowerShellVersion: LatestVersion
+            - task: AzureResourceManagerTemplateDeployment@3
+              displayName: 'Template Deployment - Dev'
+              inputs:
+                deploymentScope: Subscription
+                azureResourceManagerConnection: 'sub-workload-dev'
+                subscriptionId: '$(workloadSubId)'
+                location: '$(location)'
+                csmFile: '$(templateFileDirectory)/$(templateFileName)'
+                csmParametersFile: '$(System.ArtifactsDirectory)/$(updatedParameterFileArtifactName)/$(parameterFileName)'
+                deploymentOutputs: 'ArmOutputs'
+                deploymentMode: Incremental
