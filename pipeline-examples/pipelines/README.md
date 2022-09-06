@@ -10,7 +10,7 @@
 
 ### azure-pipelines-demo-2.yaml
 
-* Install CloudNaming module from Public PowerShell Gallery repo.
+* Install CloudNaming module from Public PowerShell Gallery repository.
 * Uses a custom configuration file from the `config` folder.
 * Generate multiple resource names in one command (advanced scenario)
 

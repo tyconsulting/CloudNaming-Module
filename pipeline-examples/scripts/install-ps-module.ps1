@@ -24,7 +24,11 @@ param (
 
 #register PS repo
 Write-output "Create credential for PS Repository '$repoName'."
-$pw = ConvertTo-SecureString $accessToken -AsPlainText -Force
+$pw = New-Object SecureString
+foreach ($char in $accessToken.ToCharArray()) {
+  $pw.AppendChar($char)
+}
+
 $cred = New-Object System.Management.Automation.PSCredential 'abc', $pw
 
 Write-Output "Register PS Repository '$repoName' with source location '$sourceLocation'."
