@@ -115,7 +115,7 @@
         "maxLength": 50,
         "case": "lower",
         "leadingZeros": true,
-        "pattern": "{resourceType}-{company}-{environment}-{location}-{appIdentifier}-{instance}"
+        "pattern": "{resourceType}{company}{environment}{location}{appIdentifier}{instance}"
       },
       {
         "value": "adf",

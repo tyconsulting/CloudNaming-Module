@@ -14,6 +14,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
+## [1.0.1] - 2022-09-14
+
+
+### Added
+
+* Links to the blog articles in the `README.md` file.
+
+### Changed
+
+### Fixed
+
+* Corrected the name pattern for Azure Container Registry in the default configuration file. Original name contained disallowed character `-`. ACR names can only contain alphanumic characters.
 ## [1.0.0] - 2022-09-04
 
 
