@@ -25,6 +25,11 @@ The [pipeline-examples](pipeline-examples) folder contains 3 sample Azure DevOps
 
 * **[azure-pipelines-install-azure-artifacts.yaml](./pipeline-examples/pipelines/azure-pipelines-install-azure-artifacts.yaml)**: Example on how to publish a customized version of the CloudNaming module to an Azure Artifacts organization-level feed.
 
+## Additional Resources:
+
+* Tao Yang's blog articles `Programmatically Generate Cloud Resource Names`
+  * [Part 1](https://blog.tyang.org/2022/09/10/programmatically-generate-cloud-resource-names-part-1/)
+  * [Part 2](https://blog.tyang.org/2022/09/10/programmatically-generate-cloud-resource-names-part-2/)
 
 ## Status
 
